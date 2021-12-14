@@ -167,6 +167,37 @@ class projectsController extends controller
         $this->loadTemplate('evaluate-chapter', $data);
     }
 
+    public function evaluateSkills($project)
+    {
+        $data = array(
+            'user_id' => ''
+        );
+
+        $e = new Evaluate();
+        $u = new User();
+        $c = new Configuration();
+
+        $data['user_id'] = $u->getUserById($_SESSION['logged']);
+        $data['configuration'] = $c->getConfigs();
+
+        if (isset($_POST['performance'])) {
+            $user = addslashes($data['user_id']);
+            $performance = addslashes($_POST['performance']);
+            $safety = addslashes($_POST['safety']);
+            $usability = addslashes($_POST['usability']);
+            $git = addslashes($_POST['git']);
+            $story = addslashes($_POST['story']);
+            $api = addslashes($_POST['api']);
+            $justification = addslashes($_POST['justification']);
+
+            $e->addEvaluateSkills($user, $project, $performance, $safety, $usability, $git, $story, $api, $justification);
+
+            header("Location: " . BASE_URL . "projects");
+        }
+
+        $this->loadTemplate('evaluate-skills', $data);
+    }
+
     public function info($id)
     {
         $p = new Project();

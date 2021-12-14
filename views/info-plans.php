@@ -22,6 +22,15 @@ if (empty($_SESSION['logged'])) {
             <textarea class="form-control" rows="5" id="description" name="description" disabled><?php echo $plans['description'] ?></textarea>
         </div>
 
+        <?php if (isset($plans['skill'])): ?>
+        <div class="form-group">
+            <label for="value">Skill:</label>
+            <input type="text" name="skill" id="skill" class="form-control"
+                   value="<?php echo $plans['skill'] ?>"
+                   disabled/>
+        </div>
+        <?php endif; ?>
+
         <div class="form-group">
             <label for="value">Status:</label>
             <input type="text" name="status" id="status" class="form-control"

@@ -65,7 +65,7 @@ class Project extends model
             $filtrostring[] = 'te.id = :type';
         }
 
-        $sql = $this->db->prepare("SELECT p.id, p.week, e.name, p.grade, p.evaluate, p.fk_type_evaluate_id, count(eval.squad) AS squad, count(eval.chapter) AS chapter, te.name AS name_type
+        $sql = $this->db->prepare("SELECT p.id, p.week, e.name, p.grade, p.evaluate, p.fk_type_evaluate_id, count(eval.squad) AS squad, count(eval.chapter) AS chapter, count(eval.skill) AS skill, te.name AS name_type
                         FROM projects p
                         JOIN employees e ON (e.id = p.fk_employee_id)
                         LEFT JOIN evaluates eval ON (eval.fk_project_id = p.id)

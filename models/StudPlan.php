@@ -42,13 +42,13 @@ class StudPlan extends model
         return $array;
     }
 
-    public function createPlan($recovery, $title, $description, $dueDate, $status = 'A Executar')
+    public function createPlan($recovery, $title, $description, $dueDate, $skill, $status = 'A Executar')
     {
         $dueDate = explode(' ', $dueDate);
         $dueDate[0] = implode("-", array_reverse(explode("/", $dueDate[0])));
         $today = date("Y-m-d H:i:s");
 
-        $sql = "INSERT INTO studies_plan SET fk_recovery_id = '$recovery', title = '$title', description = '$description', due_date = '$dueDate[0] $dueDate[1]', status = '$status', created_at = '$today'";
+        $sql = "INSERT INTO studies_plan SET fk_recovery_id = '$recovery', title = '$title', description = '$description', due_date = '$dueDate[0] $dueDate[1]', skill = '$skill' , status = '$status', created_at = '$today'";
 //        print_r($sql);die();
         $sql = $this->db->query($sql);
 
@@ -59,7 +59,7 @@ class StudPlan extends model
     {
         $array = array();
 
-        $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.`status`, r.id AS recovery, e.name 
+        $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
                 FROM studies_plan sp
                 JOIN recoveries r
                 ON r.id = sp.fk_recovery_id

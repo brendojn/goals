@@ -27,16 +27,20 @@ class plansController extends controller
     public function add($recovery)
     {
         $s = new StudPlan();
+        $e = new Evaluate();
+
+        $data['evaluates'] = $e->getEvaluateSkill($recovery);
 
         if (isset($_POST['title']) && !empty($_POST['title'])) {
             $title = addslashes($_POST['title']);
             $description = addslashes($_POST['description']);
             $dueDate = addslashes($_POST['due_date']);
+            $skill = addslashes($_POST['skill']);
 
-            $s->createPlan($recovery, $title, $description, $dueDate);
+            $s->createPlan($recovery, $title, $description, $dueDate, $skill);
         }
 
-        $this->loadTemplate('add-plans');
+        $this->loadTemplate('add-plans', $data);
     }
 
     public function info($id)

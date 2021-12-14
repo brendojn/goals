@@ -11,6 +11,32 @@ if (empty($_SESSION['logged'])) {
 
     <form method="POST" enctype="multipart/form-data">
 
+
+        <?php if (isset($evaluates['performance'])) : ?>
+            <div class="form-group">
+                <div class="title">
+                    <label for="text">Competências a recuperar</label><br/>
+                </div>
+                <?php if ($evaluates['performance'] < 6) : ?>
+                <label class="radio-inline"><input type="radio" name="skill" value="Performance"/>Testes de Performance</label>
+                <?php endif; ?>
+                <?php if ($evaluates['safety'] < 6) : ?>
+                <label class="radio-inline"><input type="radio" name="skill" value="Segurança"/>Testes de Segurança</label>
+                <?php endif; ?>
+                <?php if ($evaluates['usability'] < 6) : ?>
+                <label class="radio-inline"><input type="radio" name="skill" value="Usabilidade"/>Testes de Usabilidade</label>
+                <?php endif; ?>
+                <?php if ($evaluates['git'] < 6) : ?>
+                <label class="radio-inline"><input type="radio" name="skill" value="Git"/>Conhecimento em git</label>
+                <?php endif; ?>
+                <?php if ($evaluates['story'] < 6) : ?>
+                <label class="radio-inline"><input type="radio" name="skill" value="Revisão de Estórias"/>Revisão de histórias</label>
+                <?php endif; ?>
+                <?php if ($evaluates['api'] < 6) : ?>
+                <label class="radio-inline"><input type="radio" name="api" value="Api"/>Testes de api</label>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
         <div class="form-group">
             <label for="task">Título:</label>
             <input type="text" name="title" id="title" class="form-control"/>
