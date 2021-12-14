@@ -21,7 +21,11 @@ if (empty($_SESSION['logged'])) {
         <?php
         foreach ($recoveries as $recovery):
             ?>
+            <?php if ($recovery['grade_plan'] == 0) : ?>
+            <tr class="success">
+        <?php else: ?>
             <tr>
+        <?php endif; ?>
                 <?php if ($recovery['qtd_recovery'] > 2): ?>
                 <td class="danger"><?php echo $recovery['name']; ?></td>
                 <td class="danger"><?php echo $recovery['grade']; ?></td>
@@ -39,8 +43,10 @@ if (empty($_SESSION['logged'])) {
                     <td><?php echo $recovery['name_type']; ?></td>
                     <td><?php echo $recovery['created_at']; ?></td>
                     <td>
+                        <?php if ($recovery['grade_plan'] != 0) : ?>
                         <a href="<?php echo BASE_URL; ?>plans/add/<?php echo $recovery['id']; ?>"
                            class="btn btn-primary">Plano de estudo</a>
+                        <?php endif; ?>
                         <a href="<?php echo BASE_URL; ?>projects/info/<?php echo $recovery['fk_project_id']; ?>"
                            class="btn btn-info">Informações</a>
                     </td>

@@ -151,9 +151,6 @@ class StudPlan extends model
                     WHERE r.id =  '$recoveryId'";
             $sql = $this->db->query($sql);
 
-            $sql = "DELETE FROM recoveries r 
-                    WHERE r.id = '$recoveryId'";
-            $sql = $this->db->query($sql);
         }
 
         header("Location: " . BASE_URL . "plans");

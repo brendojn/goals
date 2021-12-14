@@ -22,7 +22,7 @@ if (empty($_SESSION['logged'])) {
             <textarea class="form-control" rows="5" id="description" name="description" disabled><?php echo $plans['description'] ?></textarea>
         </div>
 
-        <?php if (isset($plans['skill'])): ?>
+        <?php if (isset($plans['skill']) && !$plans['skill'] == ""): ?>
         <div class="form-group">
             <label for="value">Skill:</label>
             <input type="text" name="skill" id="skill" class="form-control"
