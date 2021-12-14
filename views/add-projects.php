@@ -7,12 +7,21 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
-    <h1>Plantão - Adicionar Plantão</h1>
+    <h1>Adicionar Produtividade</h1>
 
     <form method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="week">Semana</label>
-            <input class="form-control" name="week" type="week" value="2021-W33" id="week">
+            <input class="form-control" name="week" type="text"  id="week">
+            <script type="text/javascript">
+                $(function() {
+                    $('input[name="week"]').daterangepicker( {
+                        locale: {
+                            format: 'DD/MM/YYYY'
+                        }
+                    });
+                });
+            </script>
         </div>
         <div class="form-group">
             <label for="employee">QA:</label>
@@ -21,6 +30,19 @@ if (empty($_SESSION['logged'])) {
                 foreach ($employees as $employee):
                     ?>
                     <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                <?php
+                endforeach;
+                ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Tipo de avaliação:</label>
+            <select name="type" id="type" class="form-control">
+                <?php
+                foreach ($evaluates as $evaluate):
+                ?>
+                    <option value="<?php echo $evaluate['id'] ?>"><?php echo $evaluate['name']?></option>
                 <?php
                 endforeach;
                 ?>

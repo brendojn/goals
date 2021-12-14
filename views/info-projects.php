@@ -7,20 +7,20 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
-    <h1>Plantão - Informações</h1>
+    <h1>Recuperação - Informações</h1>
 
     <form method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
             <label for="week">Semana do plantão:</label>
-            <input type="text" name="week" id="week" class="form-control" value="<?php echo $duty['week']; ?>"
+            <input type="text" name="week" id="week" class="form-control" value="<?php echo $project['week']; ?>"
                    disabled/>
         </div>
 
         <div class="form-group">
-            <label for="employee">Bonificado:</label>
+            <label for="employee">Avaliado:</label>
             <select name="employee" id="employee" class="form-control" disabled>
-                <option selected><?php echo utf8_encode($duty['name']); ?></option>
+                <option selected><?php echo utf8_encode($project['name']); ?></option>
             </select>
         </div>
 
@@ -28,6 +28,13 @@ if (empty($_SESSION['logged'])) {
             <label for="value">Avaliador:</label>
             <input type="text" name="user_v" id="user_v" class="form-control"
                    value="<?php echo $evaluates['user'] ?>"
+                   disabled/>
+        </div>
+
+        <div class="form-group">
+            <label for="value">Nota:</label>
+            <input type="text" name="grade" id="grade" class="form-control"
+                   value="<?php echo $project['grade'] ?>"
                    disabled/>
         </div>
 

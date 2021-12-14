@@ -163,7 +163,7 @@ class tasksController extends controller
 
 
             $percent = $t->getTaskById($task);
-            $p->payTask($task, $user, $value, $percent['points']);
+            $p->payTask($task, $user, $value, $percent['grade']);
 
             header("Location: " . BASE_URL . "tasks");
         }

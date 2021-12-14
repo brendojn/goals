@@ -3,16 +3,28 @@
 class Employee extends model
 {
 
-    public function getEmployees()
+    public function getEmployees($filters = [])
     {
         $array = array();
 
-        $sql = "SELECT e.id, e.name, count(t.task) as tasks FROM employees e
-        LEFT JOIN tasks t
-        ON t.fk_employee_id = e.id
-        GROUP BY e.name";
+        $filtrostring = array('1=1');
 
-        $sql = $this->db->query($sql);
+        if (!empty($filters['type'])) {
+            $filtrostring[] = 'te.id = :type';
+        }
+
+        $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade) as grade, qtd_recovery FROM employees e
+                LEFT JOIN projects p
+                ON p.fk_employee_id = e.id
+                LEFT JOIN type_evaluate te
+                ON te.id = p.fk_type_evaluate_id
+                WHERE " . implode(' AND ', $filtrostring) . " 
+                GROUP BY e.id
+                ORDER BY grade DESC");
+        if (!empty($filters['type'])) {
+            $sql->bindValue(':type', $filters['type']);
+        }
+        $sql->execute();
 
         if ($sql->rowCount() > 0) {
             $array = $sql->fetchAll();
@@ -42,7 +54,5 @@ class Employee extends model
         } else {
             return "QA já cadastrado";
         }
-
-
     }
 }

@@ -9,17 +9,21 @@
 	    <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery.min.js"></script>
 	    <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/bootstrap.min.js"></script>
 	    <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     </head>
     <body>
 		<nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a href="<?php echo BASE_URL; ?>" class="navbar-brand">123Milhas - Pagamento de Metas</a>
+                    <a href="<?php echo BASE_URL; ?>" class="navbar-brand">123Milhas - Acompanhamento de Produtividade</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if (isset($_SESSION['logged']) && !empty($_SESSION['logged'])): ?>
-                        <li><a href="<?php echo BASE_URL; ?>dutys">Plantão QA</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>tasks">Tarefas</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>recovery">Recuperação</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>projects">Avaliações QA</a></li>
                         <li><a href="<?php echo BASE_URL; ?>employees">QA's</a></li>
                         <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
                     <?php else: ?>

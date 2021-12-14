@@ -20,12 +20,6 @@ class Task extends model
         }
     }
 
-    public function createDuty($employee, $complexity, $task, $points = 100) {
-
-
-    }
-
-
     public function getTaskById($id)
     {
         $array = array();
@@ -146,10 +140,6 @@ class Task extends model
         if (!empty($filters['task'])) {
             $sql->bindValue(':task', $filters['task']);
         }
-
-//        print_r($sql);
-//        die();
-
 
         $sql->execute();
 

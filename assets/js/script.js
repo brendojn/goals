@@ -1,3 +1,15 @@
+function addGrade(grade) {
+	if (grade !== '') {
+		confirm("")
+
+		$.ajax({
+			type:'POST',
+			url:'ajax/add_friend',
+			data:{id:grade}
+		});
+	}
+}
+
 function addFriend(id, obj) {
 
 	if(id != '') {

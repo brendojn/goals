@@ -13,7 +13,7 @@ if (empty($_SESSION['logged'])) {
 
         <div class="form-group">
             <label for="week">Semana do plantão:</label>
-            <input type="text" name="week" id="week" class="form-control" value="<?php echo $getDuty['week']; ?>"
+            <input type="text" name="week" id="week" class="form-control" value="<?php echo $getProject['week']; ?>"
                    disabled/>
         </div>
         <div class="form-group">
@@ -23,7 +23,7 @@ if (empty($_SESSION['logged'])) {
                 foreach ($employees as $employee):
                     ?>
                     <option value="<?php echo $employee['id']; ?>"
-                        <?php echo $getDuty['id'] == $employee['id'] ? 'selected' : ''; ?> ><?php echo utf8_encode($employee['name']); ?></option>
+                        <?php echo $getProject['id'] == $employee['id'] ? 'selected' : ''; ?> ><?php echo utf8_encode($employee['name']); ?></option>
                 <?php
                 endforeach;
                 ?>

@@ -12,7 +12,7 @@
 			<div class="container">
 				<div id="navbar">
 					<ul class="nav navbar-nav navbar-left">
-						<li><a href="<?php echo BASE_URL; ?>">Pagamento de metas</a></li>
+						<li><a href="<?php echo BASE_URL; ?>">Acompanhamento de Produtividade</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="<?php echo BASE_URL; ?>login/enter">Login</a></li>

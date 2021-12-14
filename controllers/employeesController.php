@@ -15,10 +15,20 @@ class employeesController extends controller
 
         $e = new Employee();
         $t = new Task();
+        $te = new TypeEvaluate();
+
+        $filters = array(
+            'type' => '',
+        );
+
+        if (isset($_GET['filters'])) {
+            $filters = $_GET['filters'];
+        }
 
         $employee = addslashes($_POST['employee']);
 
-        $data['employees'] = $e->getEmployees();
+        $data['evaluates'] = $te->getTypeEvaluates();
+        $data['employees'] = $e->getEmployees($filters);
 
         $this->loadTemplate('employees', $data);
     }

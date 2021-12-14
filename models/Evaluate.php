@@ -2,6 +2,7 @@
 
 class Evaluate extends model
 {
+
     public function addEvaluateTask($user, $task, $time = 0, $automation = 0, $lighthouse = 0, $trello = 0, $jira = 0, $testrail = 0, $bugs = 0, $impact = 0)
     {
 
@@ -12,7 +13,7 @@ class Evaluate extends model
 
         $config_time = $time * $row['config_time'];
 
-        $config_process = ($automation + $lighthouse + $trello + $jira + $testrail ) * $row['config_proccess'];
+        $config_process = ($automation + $lighthouse + $trello + $jira + $testrail) * $row['config_proccess'];
 
         $config_bugs = $bugs * $row['config_bugs'];
 
@@ -32,7 +33,7 @@ class Evaluate extends model
             $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_task_id = '$task', time = '$time', automation = '$automation', lighthouse = '$lighthouse', trello = '$trello', jira = '$jira', testrail = '$testrail', bugs = '$bugs', impact = '$impact'";
             $sql = $this->db->query($sql);
 
-            $sql = "UPDATE tasks SET points = points - '$total', evaluate = '1' WHERE id = '$task'";
+            $sql = "UPDATE tasks SET grade = grade - '$total', evaluate = '1' WHERE id = '$task'";
             $sql = $this->db->query($sql);
 
             header("Location: " . BASE_URL . "tasks");
@@ -41,38 +42,76 @@ class Evaluate extends model
         }
     }
 
-    public function addEvaluateDuty($user, $duty, $font, $tag, $bugs, $justification)
+    public function addEvaluateSquad($user, $project, $collaboration, $qa_in_squad, $communication, $respect, $automation, $business, $gradeSquad, $justification)
     {
+        $array = array();
+
         $sql = "SELECT * from configuration ORDER BY id DESC LIMIT 1";
 
         $sql = $this->db->query($sql);
 
         $row = $sql->fetch();
 
-        $config_font = $font * $row['config_font'];
+        $total = $collaboration + $qa_in_squad + $communication + $respect + $automation + $business;
 
-        $config_tag = $tag * $row['config_tag'];
+        $grade = sprintf('%.2f',((($total / $row['config_squad']) * 100) + $gradeSquad) / 2);
 
-        $config_bugs = $bugs * $row['config_high_impact'];
-
-        $total = $config_bugs + $config_tag + $config_font;
-
-        if ($total > 600) {
-            $total = 600;
+        if ($grade > $row['config_squad']) {
+            $grade = 60;
         }
 
-        $sql = "SELECT * FROM dutys WHERE id = '$duty' AND evaluate = '0'";
+        $average = $row['config_squad'] * ($row['config_average'] / 100);
+
+        $sql = "SELECT * FROM projects WHERE id = '$project' AND evaluate = '0'";
         $sql = $this->db->query($sql);
 
         if ($sql->rowCount() == 1) {
-            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_duty_id = '$duty', impact = '$bugs', tag = '$tag', font = '$font', justification = '$justification'";
+            $sql = "UPDATE projects SET grade = grade + '$grade' WHERE id = '$project'";
             $sql = $this->db->query($sql);
 
-            $sql = "UPDATE dutys SET points = points - '$total', evaluate = '1' WHERE id = '$duty'";
-
+            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
             $sql = $this->db->query($sql);
 
-            header("Location: " . BASE_URL . "dutys");
+            $sql = "SELECT * FROM evaluates ORDER BY id DESC LIMIT 1";
+            $sql = $this->db->query($sql);
+
+            if ($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+            }
+
+            $evaluate_id = $array['id'];
+
+            $sql = "INSERT INTO evaluate_squad SET fk_evaluate_id = '$evaluate_id', collaboration = '$collaboration', qa_in_squad = '$qa_in_squad', communication = '$communication', respect = '$respect', automation = '$automation', business = '$business'";
+            $sql = $this->db->query($sql);
+
+            $sql = "SELECT squad, chapter, fk_employee_id, fk_type_evaluate_id FROM projects p
+                    JOIN evaluates e
+                    ON e.fk_project_id = p.id
+                    WHERE p.id = '$project'
+                    ORDER BY p.id ASC LIMIT 1";
+            $sql = $this->db->query($sql);
+
+            if ($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+            }
+
+            if (isset($array['chapter']) || $array['fk_type_evaluate_id'] == 3) {
+                $sql = "UPDATE projects SET evaluate = '1' WHERE id = '$project'";
+                $sql = $this->db->query($sql);
+            }
+
+            $employee_id = $array['fk_employee_id'];
+            $today = date("Y-m-d H:i:s");
+
+            if ($average > $grade) {
+                $sql = "INSERT INTO recoveries SET fk_employee_id = '$employee_id', fk_project_id = '$project', created_at = '$today', updated_at = '$today'";
+                $sql = $this->db->query($sql);
+
+                $sql = "UPDATE employees SET qtd_recovery = qtd_recovery + 1 WHERE id = '$employee_id'";
+                $sql = $this->db->query($sql);
+            }
+
+            header("Location: " . BASE_URL . "projects");
         } else {
             return "Plantão já se encontra avaliado";
         }
@@ -95,20 +134,92 @@ class Evaluate extends model
         return $array;
     }
 
-    public function getEvaluateDuty($duty)
+    public function getEvaluateProject($project)
     {
         $array = array();
 
         $sql = "SELECT u.user, e.justification
                 FROM evaluates e
-                JOIN dutys d ON (d.id = e.fk_duty_id)
+                JOIN projects p ON (p.id = e.fk_project_id)
                 JOIN users u ON (u.id = e.fk_user_id)
-                WHERE d.id = '$duty'";
+                WHERE p.id = '$project'";
         $sql = $this->db->query($sql);
 
         $array = $sql->fetch();
 
         return $array;
+    }
+
+    public function addEvaluateChapter($user, $project, $risks, $documentation, $bugs, $participation, $ambition, $training, $gradeChapter, $justification)
+    {
+        $array = array();
+
+        $sql = "SELECT * from configuration ORDER BY id DESC LIMIT 1";
+
+        $sql = $this->db->query($sql);
+
+        $row = $sql->fetch();
+
+        $total = ($row['config_chapter'] / $row['config_squad']) * ($risks + $documentation + $bugs + $participation + $ambition + $training);
+        $grade = sprintf('%.2f', ($total  + $gradeChapter) / 2);
+
+        $average = $row['config_chapter'] * ($row['config_average'] / 100);
+
+        $sql = "SELECT * FROM projects WHERE id = '$project' AND evaluate = '0'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() == 1) {
+            $sql = "UPDATE projects SET grade = grade + '$grade' WHERE id = '$project'";
+            $sql = $this->db->query($sql);
+
+            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', chapter = 1, justification = '$justification'";
+            $sql = $this->db->query($sql);
+
+            $sql = "SELECT * FROM evaluates ORDER BY id DESC LIMIT 1";
+            $sql = $this->db->query($sql);
+
+            if ($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+            }
+
+            $evaluate_id = $array['id'];
+
+            $sql = "INSERT INTO evaluate_chapter SET fk_evaluate_id = '$evaluate_id', risks = '$risks', documentation = '$documentation', bugs = '$bugs', participation = '$participation', ambition = '$ambition', training = '$training'";
+            $sql = $this->db->query($sql);
+
+
+            $sql = "SELECT squad, chapter, fk_employee_id, fk_type_evaluate_id FROM projects p
+                    JOIN evaluates e
+                    ON e.fk_project_id = p.id
+                    WHERE p.id = '$project'
+                    ORDER BY p.id ASC LIMIT 1";
+            $sql = $this->db->query($sql);
+
+            if ($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+            }
+
+            if (isset($array['squad']) || $array['fk_type_evaluate_id'] == 2 ) {
+                $sql = "UPDATE projects SET evaluate = '1' WHERE id = '$project'";
+                $sql = $this->db->query($sql);
+            }
+
+            $employee_id = $array['fk_employee_id'];
+            $today = date("Y-m-d H:i:s");
+
+            if ($average > $grade) {
+                $sql = "INSERT INTO recoveries SET fk_employee_id = '$employee_id', fk_project_id = '$project', grade_plan = $average - $grade, subtract_plan = $average - $grade, created_at = '$today', updated_at = '$today'";
+//                print_r($sql);die();
+                $sql = $this->db->query($sql);
+
+                $sql = "UPDATE employees SET qtd_recovery = qtd_recovery + 1 WHERE id = '$employee_id'";
+                $sql = $this->db->query($sql);
+            }
+
+            header("Location: " . BASE_URL . "projects");
+        } else {
+            return "Plantão já se encontra avaliado";
+        }
     }
 
 }
