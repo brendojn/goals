@@ -7,6 +7,7 @@ class recoveryController extends controller
     {
         $u = new User();
         $u->verifyLogin();
+        $u->permissionPage();
     }
 
     public function index()

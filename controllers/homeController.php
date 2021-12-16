@@ -11,6 +11,11 @@ class homeController extends controller
 
     public function index()
     {
+        $data = array();
+        $u = new User();
+
+        $data['lead'] = $u->isLead();
+
         $this->loadTemplate('index', $data);
     }
 

@@ -21,7 +21,7 @@ if (empty($_SESSION['logged'])) {
         <?php
         foreach ($recoveries as $recovery):
             ?>
-            <?php if ($recovery['grade_plan'] == 0) : ?>
+            <?php if ($recovery['grade_plan'] == 0 && $recovery['grade_plan'] != NULL) : ?>
             <tr class="success">
         <?php else: ?>
             <tr>
@@ -43,7 +43,7 @@ if (empty($_SESSION['logged'])) {
                     <td><?php echo $recovery['name_type']; ?></td>
                     <td><?php echo $recovery['created_at']; ?></td>
                     <td>
-                        <?php if ($recovery['grade_plan'] != 0) : ?>
+                        <?php if ($recovery['grade_plan'] != 0 || $recovery['grade_plan'] == NULL) : ?>
                         <a href="<?php echo BASE_URL; ?>plans/add/<?php echo $recovery['id']; ?>"
                            class="btn btn-primary">Plano de estudo</a>
                         <?php endif; ?>

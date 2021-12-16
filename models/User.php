@@ -5,13 +5,52 @@ class User extends model
 
     public function verifyLogin()
     {
-
         if (!isset($_SESSION['logged']) || (isset($_SESSION['logged']) && empty($_SESSION['logged']))) {
             header("Location: " . BASE_URL . "login");
             exit;
         }
-
     }
+
+    public function permissionPage()
+    {
+         $user_id = $this->getUserById($_SESSION['logged']);
+
+         $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, u.user FROM employees e
+        JOIN users u
+        ON u.id = e.fk_user_id
+        WHERE u.id = '$user_id'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            if ($sql['chapter_lead'] === NULL && $sql['squad_lead'] === NULL) {
+                header("Location: " . BASE_URL);
+            }
+        }
+    }
+
+    public function isLead()
+    {
+        $user_id = $this->getUserById($_SESSION['logged']);
+
+        $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, u.user FROM employees e
+        JOIN users u
+        ON u.id = e.fk_user_id
+        WHERE u.id = '$user_id'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            if ($sql['chapter_lead'] === NULL && $sql['squad_lead'] === NULL) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
 
     public function login($user, $password)
     {

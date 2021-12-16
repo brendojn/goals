@@ -19,6 +19,8 @@ class plansController extends controller
         $data['user_id'] = $u->getUserById($_SESSION['logged']);
         $user = addslashes($data['user_id']);
 
+        $data['lead'] = $u->isLead();
+
         $data['plans'] = $s->getPlans($user);
 
         $this->loadTemplate('plans', $data);

@@ -25,7 +25,11 @@ class StudPlan extends model
     {
         $array = array();
 
-        $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.`status`, r.id AS recovery, e.name, sp.created_at
+        $u = new User();
+        $isLead = $u->isLead();
+
+        if ($isLead === false) {
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.`status`, r.id AS recovery, e.name, sp.created_at
                 FROM studies_plan sp
                 JOIN recoveries r
                 ON r.id = sp.fk_recovery_id
@@ -34,7 +38,18 @@ class StudPlan extends model
                 JOIN users u 
                 ON u.id = e.fk_user_id
                 WHERE e.fk_user_id = '$user'";
-        $sql = $this->db->query($sql);
+            $sql = $this->db->query($sql);
+        } else {
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.`status`, r.id AS recovery, e.name, sp.created_at
+                FROM studies_plan sp
+                JOIN recoveries r
+                ON r.id = sp.fk_recovery_id
+                JOIN employees e
+                ON e.id = r.fk_employee_id
+                JOIN users u 
+                ON u.id = e.fk_user_id";
+            $sql = $this->db->query($sql);
+        }
 
         if ($sql->rowCount() > 0) {
             $array = $sql->fetchAll();
@@ -59,7 +74,11 @@ class StudPlan extends model
     {
         $array = array();
 
-        $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
+        $u = new User();
+        $isLead = $u->isLead();
+
+        if ($isLead === false) {
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
                 FROM studies_plan sp
                 JOIN recoveries r
                 ON r.id = sp.fk_recovery_id
@@ -68,7 +87,19 @@ class StudPlan extends model
                 JOIN users u 
                 ON u.id = e.fk_user_id
                 WHERE sp.id = '$id' AND e.fk_user_id = '$user'";
-        $sql = $this->db->query($sql);
+            $sql = $this->db->query($sql);
+        } else {
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
+                FROM studies_plan sp
+                JOIN recoveries r
+                ON r.id = sp.fk_recovery_id
+                JOIN employees e
+                ON e.id = r.fk_employee_id
+                JOIN users u 
+                ON u.id = e.fk_user_id
+                WHERE sp.id = '$id'";
+            $sql = $this->db->query($sql);
+        }
         if ($sql->rowCount() > 0) {
             $array = $sql->fetch();
         }
