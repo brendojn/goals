@@ -26,7 +26,7 @@ if (empty($_SESSION['logged'])) {
         <?php else: ?>
             <tr>
         <?php endif; ?>
-                <?php if ($recovery['qtd_recovery'] > 2): ?>
+                <?php if ($recovery['qtd_recovery'] > 2 && !$recovery['grade_plan'] == 0): ?>
                 <td class="danger"><?php echo $recovery['name']; ?></td>
                 <td class="danger"><?php echo $recovery['grade']; ?></td>
                 <td class="danger"><?php echo $recovery['name_type']; ?></td>
