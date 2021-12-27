@@ -93,8 +93,6 @@ class StudPlan extends model
                 ON r.id = sp.fk_recovery_id
                 JOIN employees e
                 ON e.id = r.fk_employee_id
-                JOIN users u 
-                ON u.id = e.fk_user_id
                 WHERE sp.id = '$id'";
             $sql = $this->db->query($sql);
         }
@@ -168,8 +166,10 @@ class StudPlan extends model
 
         if ($array['fk_type_evaluate_id'] == 2) {
             $average = $row['config_chapter'] * ($row['config_average'] / 100);
-        } else {
+        } elseif ($array['fk_type_evaluate_id'] == 3) {
             $average = $row['config_squad'] * ($row['config_average'] / 100);
+        } else {
+            $average = $row['config_skill'] * ($row['config_average'] / 100);
         }
 
         if ($array['grade_plan'] == 0.0) {
