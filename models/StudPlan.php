@@ -29,7 +29,7 @@ class StudPlan extends model
         $isLead = $u->isLead();
 
         if ($isLead === false) {
-            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.`status`, r.id AS recovery, e.name, sp.created_at
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, r.id AS recovery, e.name, sp.created_at
                 FROM studies_plan sp
                 JOIN recoveries r
                 ON r.id = sp.fk_recovery_id
@@ -40,14 +40,12 @@ class StudPlan extends model
                 WHERE e.fk_user_id = '$user'";
             $sql = $this->db->query($sql);
         } else {
-            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.`status`, r.id AS recovery, e.name, sp.created_at
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, r.id AS recovery, e.name, sp.created_at
                 FROM studies_plan sp
                 JOIN recoveries r
                 ON r.id = sp.fk_recovery_id
                 JOIN employees e
-                ON e.id = r.fk_employee_id
-                JOIN users u 
-                ON u.id = e.fk_user_id";
+                ON e.id = r.fk_employee_id";
             $sql = $this->db->query($sql);
         }
 
