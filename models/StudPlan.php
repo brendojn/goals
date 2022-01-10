@@ -24,11 +24,22 @@ class StudPlan extends model
     public function getPlans($user)
     {
         $array = array();
+        $isBeginner = $array;
 
         $u = new User();
         $isLead = $u->isLead();
 
-        if ($isLead === false) {
+        $sql = "SELECT USER, beginner FROM users u
+                JOIN employees e
+                ON e.fk_user_id = u.id
+                WHERE u.id = '$user'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $isBeginner = $sql->fetch();
+        }
+
+        if ($isLead === false && $isBeginner['beginner'] != 1) {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, r.id AS recovery, e.name, sp.created_at
                 FROM studies_plan sp
                 JOIN recoveries r
@@ -39,7 +50,7 @@ class StudPlan extends model
                 ON u.id = e.fk_user_id
                 WHERE e.fk_user_id = '$user'";
             $sql = $this->db->query($sql);
-        } else {
+        } elseif ($isLead === true && $isBeginner['beginner'] != 1) {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, r.id AS recovery, e.name, sp.created_at
                 FROM studies_plan sp
                 JOIN recoveries r
@@ -47,21 +58,35 @@ class StudPlan extends model
                 JOIN employees e
                 ON e.id = r.fk_employee_id";
             $sql = $this->db->query($sql);
+        } else {
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at FROM studies_plan sp
+            JOIN employees e
+            ON e.id = sp.fk_employee_id
+            WHERE e.fk_user_id = '$user'";
+            $sql = $this->db->query($sql);
         }
 
         if ($sql->rowCount() > 0) {
             $array = $sql->fetchAll();
         }
+
         return $array;
     }
 
-    public function createPlan($recovery, $title, $description, $dueDate, $skill, $status = 'A Executar')
+    public function createPlan($recovery, $title, $description, $dueDate, $skill, $status = 'A Executar', $employee = NULL)
     {
         $dueDate = explode(' ', $dueDate);
         $dueDate[0] = implode("-", array_reverse(explode("/", $dueDate[0])));
         $today = date("Y-m-d H:i:s");
+        if ($recovery === NULL) {
+            $recovery = 'NULL';
+        }
 
-        $sql = "INSERT INTO studies_plan SET fk_recovery_id = '$recovery', title = '$title', description = '$description', due_date = '$dueDate[0] $dueDate[1]', skill = '$skill' , status = '$status', created_at = '$today'";
+        if ($employee === NULL) {
+            $employee = 'NULL';
+        }
+
+        $sql = "INSERT INTO studies_plan SET fk_recovery_id = $recovery, fk_employee_id = $employee, title = '$title', description = '$description', due_date = '$dueDate[0] $dueDate[1]', skill = '$skill' , status = '$status', created_at = '$today'";
 //        print_r($sql);die();
         $sql = $this->db->query($sql);
 
@@ -71,11 +96,22 @@ class StudPlan extends model
     public function getPlanById($id, $user)
     {
         $array = array();
+        $isBeginner = array();
 
         $u = new User();
         $isLead = $u->isLead();
 
-        if ($isLead === false) {
+        $sql = "SELECT USER, beginner FROM users u
+                JOIN employees e
+                ON e.fk_user_id = u.id
+                WHERE u.id = '$user'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $isBeginner = $sql->fetch();
+        }
+
+        if ($isLead === false && $isBeginner['beginner'] != 1) {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
                 FROM studies_plan sp
                 JOIN recoveries r
@@ -86,7 +122,7 @@ class StudPlan extends model
                 ON u.id = e.fk_user_id
                 WHERE sp.id = '$id' AND e.fk_user_id = '$user'";
             $sql = $this->db->query($sql);
-        } else {
+        } elseif ($isLead === true && $isBeginner['beginner'] != 1) {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
                 FROM studies_plan sp
                 JOIN recoveries r
@@ -94,6 +130,13 @@ class StudPlan extends model
                 JOIN employees e
                 ON e.id = r.fk_employee_id
                 WHERE sp.id = '$id'";
+            $sql = $this->db->query($sql);
+        } else {
+            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, e.name 
+            FROM studies_plan sp
+            JOIN employees e
+            ON e.id = sp.fk_employee_id
+            WHERE sp.id = '$id'";
             $sql = $this->db->query($sql);
         }
         if ($sql->rowCount() > 0) {

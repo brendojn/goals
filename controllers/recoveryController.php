@@ -15,7 +15,9 @@ class recoveryController extends controller
         $data = array();
 
         $r = new Recovery();
+        $c = new Configuration();
 
+        $data['configs'] = $c->getConfigs();
         $data['recoveries'] = $r->getRecoveries();
 
         $this->loadTemplate('recoveries', $data);

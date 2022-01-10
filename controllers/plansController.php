@@ -26,12 +26,14 @@ class plansController extends controller
         $this->loadTemplate('plans', $data);
     }
 
-    public function add($recovery)
+    public function add($recovery = NULL)
     {
         $s = new StudPlan();
         $e = new Evaluate();
 
-        $data['evaluates'] = $e->getEvaluateSkill($recovery);
+        if ($recovery != NULL) {
+            $data['evaluates'] = $e->getEvaluateSkill($recovery);
+        }
 
         if (isset($_POST['title']) && !empty($_POST['title'])) {
             $title = addslashes($_POST['title']);
@@ -41,6 +43,27 @@ class plansController extends controller
 
             $s->createPlan($recovery, $title, $description, $dueDate, $skill);
         }
+
+        $this->loadTemplate('add-plans', $data);
+    }
+
+    public function addBeginner()
+    {
+        $s = new StudPlan();
+        $e = new Evaluate();
+        $emp = new Employee();
+
+        if (isset($_POST['title']) && !empty($_POST['title'])) {
+            $title = addslashes($_POST['title']);
+            $description = addslashes($_POST['description']);
+            $dueDate = addslashes($_POST['due_date']);
+            $skill = addslashes($_POST['skill']);
+            $employee = addslashes($_POST['employee']);
+
+            $s->createPlan(NULL, $title, $description, $dueDate, $skill, 'A Executar', $employee);
+        }
+
+        $data['employees'] = $emp->getEmployees();
 
         $this->loadTemplate('add-plans', $data);
     }

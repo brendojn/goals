@@ -12,6 +12,7 @@ if (empty($_SESSION['logged'])) {
     <form method="POST" enctype="multipart/form-data">
 
 
+
         <?php if (isset($evaluates['performance'])) : ?>
             <div class="form-group">
                 <div class="title">
@@ -46,6 +47,20 @@ if (empty($_SESSION['logged'])) {
             <label for="description">Detalhe do plano:</label>
             <textarea class="form-control" rows="5" id="description" name="description"></textarea>
         </div>
+
+        <div class="form-group">
+            <label for="employee">QA:</label>
+            <select name="employee" id="employee" class="form-control">
+                <?php
+                foreach ($employees as $employee):
+                    ?>
+                    <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                <?php
+                endforeach;
+                ?>
+            </select>
+        </div>
+
 
         <div class="form-group">
             <label for="due_date">Data de vencimento:</label>

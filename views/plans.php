@@ -7,6 +7,9 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
+    <div class="form-group">
+        <a href="<?php echo BASE_URL; ?>plans/addBeginner" class="btn btn-default">Adicionar Plano de Estudo</a>
+    </div>
 
     <table class="table table-striped">
         <thead>

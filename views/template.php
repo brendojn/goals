@@ -22,9 +22,6 @@
                 <ul class="nav navbar-nav navbar-right">
                     <?php if (isset($_SESSION['logged']) && !empty($_SESSION['logged'])): ?>
                         <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>recovery">Recuperação</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>projects">Avaliações QA</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>employees">QA's</a></li>
                         <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
                     <?php else: ?>
                         <li><a href="<?php echo BASE_URL; ?>add">Cadastre-se</a></li>
