@@ -7,15 +7,16 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
-    <div class="form-group">
-        <a href="<?php echo BASE_URL; ?>plans/addBeginner" class="btn btn-default">Adicionar Plano de Estudo</a>
-    </div>
-
+    <?php if ($lead === true) : ?>
+        <div class="form-group">
+            <a href="<?php echo BASE_URL; ?>plans/addBeginner" class="btn btn-default">Adicionar Plano de Estudo</a>
+        </div>
+    <?php endif; ?>
     <table class="table table-striped">
         <thead>
         <tr>
             <?php if ($lead === true) : ?>
-            <th>Nome</th>
+                <th>Nome</th>
             <?php endif; ?>
             <th>Título</th>
             <th>Data de Criação</th>
@@ -26,12 +27,12 @@ if (empty($_SESSION['logged'])) {
         </thead>
         <?php foreach ($plans as $plan): ?>
             <?php if ($plan['status'] == "Concluido") : ?>
-            <tr class="success">
-        <?php else: ?>
-            <tr>
-        <?php endif; ?>
-        <?php if ($lead === true) : ?>
-            <td><?php echo $plan['name']; ?></td>
+                <tr class="success">
+            <?php else: ?>
+                <tr>
+            <?php endif; ?>
+            <?php if ($lead === true) : ?>
+                <td><?php echo $plan['name']; ?></td>
             <?php endif; ?>
             <td><?php echo $plan['title']; ?></td>
             <?php $createdDate = explode(' ', $plan['created_at']); ?>
