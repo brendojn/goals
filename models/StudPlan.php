@@ -102,7 +102,7 @@ class StudPlan extends model
         $u = new User();
         $isLead = $u->isLead();
 
-        $sql = "SELECT USER, beginner FROM users u
+        $sql = "SELECT user FROM users u
                 JOIN employees e
                 ON e.fk_user_id = u.id
                 WHERE u.id = '$user'";
