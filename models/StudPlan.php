@@ -102,17 +102,17 @@ class StudPlan extends model
         $u = new User();
         $isLead = $u->isLead();
 
-        $sql = "SELECT user FROM users u
-                JOIN employees e
-                ON e.fk_user_id = u.id
-                WHERE u.id = '$user'";
-        $sql = $this->db->query($sql);
+        $b = new Beginner();
+        $beginner = $b->getBeginnersByUser($user);
 
-        if ($sql->rowCount() > 0) {
-            $isBeginner = $sql->fetch();
+        $isSponsor = $beginner['fk_employee_id'];
+        $isBeginner = $beginner['fk_user_id'];
+
+        if (isset($isBeginner)) {
+            $sponsor = $u->getUserByEmployee($isSponsor);
         }
 
-        if ($isLead === false && $isBeginner['beginner'] != 1) {
+        if ($isLead === false && !isset($isBeginner) && $_SESSION['logged'] != $sponsor) {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
                 FROM studies_plan sp
                 JOIN recoveries r
@@ -123,7 +123,7 @@ class StudPlan extends model
                 ON u.id = e.fk_user_id
                 WHERE sp.id = '$id' AND e.fk_user_id = '$user'";
             $sql = $this->db->query($sql);
-        } elseif ($isLead === true && $isBeginner['beginner'] != 1) {
+        } elseif ($isLead === true && !isset($isBeginner) && $_SESSION['logged'] != $sponsor) {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.skill, sp.`status`, r.id AS recovery, e.name 
                 FROM studies_plan sp
                 JOIN recoveries r
