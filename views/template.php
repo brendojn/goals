@@ -20,7 +20,15 @@
                     <a href="<?php echo BASE_URL; ?>" class="navbar-brand">123Milhas - Acompanhamento de Produtividade</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if (isset($_SESSION['logged']) && !empty($_SESSION['logged'])): ?>
+                    <?php $u = new User(); ?>
+                    <?php $isLead = $u->isLead($_SESSION['logged']); ?>
+                    <?php if (isset($_SESSION['logged']) && !empty($_SESSION['logged']) && $isLead == true): ?>
+                        <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>recovery">Recuperação</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>projects">Avaliações QA</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>employees">QA's</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
+                    <?php elseif (isset($_SESSION['logged']) && !empty($_SESSION['logged']) && $isLead == false): ?>
                         <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
                         <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
                     <?php else: ?>

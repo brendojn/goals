@@ -19,22 +19,22 @@ if (empty($_SESSION['logged'])) {
                     <label for="text">Competências a recuperar</label><br/>
                 </div>
                 <?php if ($evaluates['performance'] < 6) : ?>
-                <label class="radio-inline"><input type="radio" name="skill" value="Performance"/>Testes de Performance</label>
+                    <label class="radio-inline"><input type="radio" name="skill" value="Performance"/>Testes de Performance</label>
                 <?php endif; ?>
                 <?php if ($evaluates['safety'] < 6) : ?>
-                <label class="radio-inline"><input type="radio" name="skill" value="Segurança"/>Testes de Segurança</label>
+                    <label class="radio-inline"><input type="radio" name="skill" value="Segurança"/>Testes de Segurança</label>
                 <?php endif; ?>
                 <?php if ($evaluates['usability'] < 6) : ?>
-                <label class="radio-inline"><input type="radio" name="skill" value="Usabilidade"/>Testes de Usabilidade</label>
+                    <label class="radio-inline"><input type="radio" name="skill" value="Usabilidade"/>Testes de Usabilidade</label>
                 <?php endif; ?>
                 <?php if ($evaluates['git'] < 6) : ?>
-                <label class="radio-inline"><input type="radio" name="skill" value="Git"/>Conhecimento em git</label>
+                    <label class="radio-inline"><input type="radio" name="skill" value="Git"/>Conhecimento em git</label>
                 <?php endif; ?>
                 <?php if ($evaluates['story'] < 6) : ?>
-                <label class="radio-inline"><input type="radio" name="skill" value="Revisão de Estórias"/>Revisão de histórias</label>
+                    <label class="radio-inline"><input type="radio" name="skill" value="Revisão de Estórias"/>Revisão de histórias</label>
                 <?php endif; ?>
                 <?php if ($evaluates['api'] < 6) : ?>
-                <label class="radio-inline"><input type="radio" name="api" value="Api"/>Testes de api</label>
+                    <label class="radio-inline"><input type="radio" name="api" value="Api"/>Testes de api</label>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
@@ -47,6 +47,20 @@ if (empty($_SESSION['logged'])) {
             <label for="description">Detalhe do plano:</label>
             <textarea class="form-control" rows="5" id="description" name="description"></textarea>
         </div>
+
+        <div class="form-group">
+            <label for="employee">QA:</label>
+            <select name="employee" id="employee" class="form-control">
+                <?php
+                foreach ($employees as $employee):
+                    ?>
+                    <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                <?php
+                endforeach;
+                ?>
+            </select>
+        </div>
+
 
         <div class="form-group">
             <label for="due_date">Data de vencimento:</label>

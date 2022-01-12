@@ -65,7 +65,7 @@ class plansController extends controller
 
         $data['employees'] = $emp->getEmployees();
 
-        $this->loadTemplate('add-plans', $data);
+        $this->loadTemplate('add-other-plans', $data);
     }
 
     public function info($id)

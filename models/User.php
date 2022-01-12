@@ -13,9 +13,9 @@ class User extends model
 
     public function permissionPage()
     {
-         $user_id = $this->getUserById($_SESSION['logged']);
+        $user_id = $this->getUserById($_SESSION['logged']);
 
-         $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, u.user FROM employees e
+        $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, u.user FROM employees e
         JOIN users u
         ON u.id = e.fk_user_id
         WHERE u.id = '$user_id'";
@@ -133,6 +133,23 @@ class User extends model
         }
 
         return $array;
+    }
+
+    public function getUserByEmployee($employee)
+    {
+        $sql = "SELECT * FROM users u
+        JOIN employees e
+        ON e.fk_user_id = u.id
+        WHERE e.id = '$employee'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            return $sql['fk_user_id'];
+        } else {
+            return '';
+        }
     }
 
 }
