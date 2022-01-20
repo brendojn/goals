@@ -81,7 +81,7 @@ if (empty($_SESSION['logged'])) {
             <div class="title">
                 <label for="text">Dê sua nota</label><br/>
             </div>
-            <input type="range" min="0" max="<?php echo $configuration['config_chapter']; ?>" step="0.5" name="gradeChapter" id="gradeChapter" value="<?php echo $configuration['config_chapter'] * ($configuration['config_average'] / 100); ?>">
+            <input type="range" min="0" max="<?php echo $configuration['config_chapter'] / ($configuration['config_chapter'] / 10); ?>" step="0.5" name="gradeChapter" id="gradeChapter" value="<?php echo ($configuration['config_chapter'] / ($configuration['config_chapter'] / 10)) * ($configuration['config_average'] / 100); ?>">
             <p>Nota: <span id="exhibition"></span></p>
         </div>
         <br/>

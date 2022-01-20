@@ -54,7 +54,7 @@ class Evaluate extends model
 
         $total = $collaboration + $qa_in_squad + $communication + $respect + $automation + $business;
 
-        $grade = sprintf('%.2f', ((($total / $row['config_squad']) * 100) + $gradeSquad) / 2);
+        $grade = sprintf('%.2f', ((($total / $row['config_squad']) * 100) + ($gradeSquad * ($row['config_squad'] / 10))) / 2);
 
         if ($grade > $row['config_squad']) {
             $grade = 60;
@@ -161,7 +161,7 @@ class Evaluate extends model
         $row = $sql->fetch();
 
         $total = ($row['config_chapter'] / $row['config_squad']) * ($risks + $documentation + $bugs + $participation + $ambition + $training);
-        $grade = sprintf('%.2f', ($total + $gradeChapter) / 2);
+        $grade = sprintf('%.2f', ($total + ($gradeChapter * ($row['config_chapter'] / 10))) / 2);
 
         $average = $row['config_chapter'] * ($row['config_average'] / 100);
 
