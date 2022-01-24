@@ -29,7 +29,9 @@ if (empty($_SESSION['logged'])) {
                 <?php
                 foreach ($employees as $employee):
                     ?>
+                <?php if ($employee['squad_lead'] === NULL) : ?>
                     <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                <?php endif; ?>
                 <?php
                 endforeach;
                 ?>

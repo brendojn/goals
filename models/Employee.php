@@ -13,7 +13,7 @@ class Employee extends model
             $filtrostring[] = 'te.id = :type';
         }
 
-        $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade) as grade, qtd_recovery FROM employees e
+        $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade) as grade, qtd_recovery, e.chapter_lead, e.squad_lead FROM employees e
                 LEFT JOIN projects p
                 ON p.fk_employee_id = e.id
                 LEFT JOIN type_evaluate te
