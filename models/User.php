@@ -51,6 +51,47 @@ class User extends model
         }
     }
 
+    public function isLeadSquad()
+    {
+        $user_id = $this->getUserById($_SESSION['logged']);
+
+        $sql = "SELECT u.id, e.squad_lead, u.user FROM employees e
+        JOIN users u
+        ON u.id = e.fk_user_id
+        WHERE u.id = '$user_id'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            if ($sql['squad_lead'] === NULL) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public function isLeadChapter()
+    {
+        $user_id = $this->getUserById($_SESSION['logged']);
+
+        $sql = "SELECT u.id, e.chapter_lead, u.user FROM employees e
+        JOIN users u
+        ON u.id = e.fk_user_id
+        WHERE u.id = '$user_id'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            if ($sql['chapter_lead'] === NULL) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 
     public function login($user, $password)
     {

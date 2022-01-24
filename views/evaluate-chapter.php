@@ -24,7 +24,7 @@ if (empty($_SESSION['logged'])) {
         <br/>
         <div class="form-group">
             <div class="title">
-            <label for="text">Documentação</label><br/>
+            <label for="text">Documentação (Bugs, Artigos e Planejamento de testes)</label><br/>
             </div>
             <label class="radio-inline"><input type="radio" name="documentation" value="0"/>Extremamente negativo</label>
             <label class="radio-inline"><input type="radio" name="documentation" value="3"/>Negativo</label>
@@ -35,13 +35,13 @@ if (empty($_SESSION['logged'])) {
         <br/>
         <div class="form-group">
             <div class="title">
-            <label for="text">Bugs de alto impacto na sua squad em prod?</label><br/>
+            <label for="text">Mentalidade analítica/crítica?</label><br/>
             </div>
-            <label class="radio-inline"><input type="radio" name="bugs" value="0"/>Extremamente negativo</label>
-            <label class="radio-inline"><input type="radio" name="bugs" value="3"/>Negativo</label>
-            <label class="radio-inline"><input type="radio" name="bugs" value="6"/>Nem positivo e nem negativo</label>
-            <label class="radio-inline"><input type="radio" name="bugs" value="8"/>Positivo</label>
-            <label class="radio-inline"><input type="radio" name="bugs" value="10"/>Extremamente positivo</label>
+            <label class="radio-inline"><input type="radio" name="analytical" value="0"/>Extremamente negativo</label>
+            <label class="radio-inline"><input type="radio" name="analytical" value="3"/>Negativo</label>
+            <label class="radio-inline"><input type="radio" name="analytical" value="6"/>Nem positivo e nem negativo</label>
+            <label class="radio-inline"><input type="radio" name="analytical" value="8"/>Positivo</label>
+            <label class="radio-inline"><input type="radio" name="analytical" value="10"/>Extremamente positivo</label>
         </div>
         <br/>
         <div class="form-group">

@@ -122,13 +122,13 @@ class projectsController extends controller
             $collaboration = addslashes($_POST['collaboration']);
             $qa_in_squad = addslashes($_POST['qa_in_squad']);
             $communication = addslashes($_POST['communication']);
-            $respect = addslashes($_POST['respect']);
+            $bugs = addslashes($_POST['bugs']);
             $automation = addslashes($_POST['automation']);
             $business = addslashes($_POST['business']);
             $gradeSquad = addslashes($_POST['gradeSquad']);
             $justification = addslashes($_POST['justification']);
 
-            $e->addEvaluateSquad($user, $project, $collaboration, $qa_in_squad, $communication, $respect, $automation, $business, $gradeSquad, $justification);
+            $e->addEvaluateSquad($user, $project, $collaboration, $qa_in_squad, $communication, $bugs, $automation, $business, $gradeSquad, $justification);
 
             header("Location: " . BASE_URL . "projects");
         }
@@ -153,14 +153,14 @@ class projectsController extends controller
             $user = addslashes($data['user_id']);
             $risks = addslashes($_POST['risks']);
             $documentation = addslashes($_POST['documentation']);
-            $bugs = addslashes($_POST['bugs']);
+            $analytical = addslashes($_POST['analytical']);
             $participation = addslashes($_POST['participation']);
             $ambition = addslashes($_POST['ambition']);
             $training = addslashes($_POST['training']);
             $gradeChapter = addslashes($_POST['gradeChapter']);
             $justification = addslashes($_POST['justification']);
 
-            $e->addEvaluateChapter($user, $project, $risks, $documentation, $bugs, $participation, $ambition, $training, $gradeChapter, $justification);
+            $e->addEvaluateChapter($user, $project, $risks, $documentation, $analytical, $participation, $ambition, $training, $gradeChapter, $justification);
 
             header("Location: " . BASE_URL . "projects");
         }

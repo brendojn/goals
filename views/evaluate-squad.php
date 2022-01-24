@@ -46,13 +46,13 @@ if (empty($_SESSION['logged'])) {
 
         <div class="form-group">
             <div class="title">
-            <label for="text">Respeito</label><br/>
+            <label for="text">Bugs de alto impacto na sua squad em prod?</label><br/>
             </div>
-            <label class="radio-inline"><input type="radio" name="respect" value="0"/>Extremamente negativo</label>
-            <label class="radio-inline"><input type="radio" name="respect" value="3"/>Negativo</label>
-            <label class="radio-inline"><input type="radio" name="respect" value="6"/>Nem positivo e nem negativo</label>
-            <label class="radio-inline"><input type="radio" name="respect" value="8"/>Positivo</label>
-            <label class="radio-inline"><input type="radio" name="respect" value="10"/>Extremamente positivo</label>
+            <label class="radio-inline"><input type="radio" name="bugs" value="0"/>Extremamente negativo</label>
+            <label class="radio-inline"><input type="radio" name="bugs" value="3"/>Negativo</label>
+            <label class="radio-inline"><input type="radio" name="bugs" value="6"/>Nem positivo e nem negativo</label>
+            <label class="radio-inline"><input type="radio" name="bugs" value="8"/>Positivo</label>
+            <label class="radio-inline"><input type="radio" name="bugs" value="10"/>Extremamente positivo</label>
         </div>
 
         <div class="form-group">

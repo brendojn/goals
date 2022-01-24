@@ -42,7 +42,7 @@ class Evaluate extends model
         }
     }
 
-    public function addEvaluateSquad($user, $project, $collaboration, $qa_in_squad, $communication, $respect, $automation, $business, $gradeSquad, $justification)
+    public function addEvaluateSquad($user, $project, $collaboration, $qa_in_squad, $communication, $bugs, $automation, $business, $gradeSquad, $justification)
     {
         $array = array();
 
@@ -52,7 +52,7 @@ class Evaluate extends model
 
         $row = $sql->fetch();
 
-        $total = $collaboration + $qa_in_squad + $communication + $respect + $automation + $business;
+        $total = $collaboration + $qa_in_squad + $communication + $bugs + $automation + $business;
 
         $grade = sprintf('%.2f', ((($total / $row['config_squad']) * 100) + ($gradeSquad * ($row['config_squad'] / 10))) / 2);
 
@@ -81,7 +81,7 @@ class Evaluate extends model
 
             $evaluate_id = $array['id'];
 
-            $sql = "INSERT INTO evaluate_squad SET fk_evaluate_id = '$evaluate_id', collaboration = '$collaboration', qa_in_squad = '$qa_in_squad', communication = '$communication', respect = '$respect', automation = '$automation', business = '$business'";
+            $sql = "INSERT INTO evaluate_squad SET fk_evaluate_id = '$evaluate_id', collaboration = '$collaboration', qa_in_squad = '$qa_in_squad', communication = '$communication', bugs = '$bugs', automation = '$automation', business = '$business'";
             $sql = $this->db->query($sql);
 
             $sql = "SELECT squad, chapter, fk_employee_id, fk_type_evaluate_id FROM projects p
@@ -150,7 +150,7 @@ class Evaluate extends model
         return $array;
     }
 
-    public function addEvaluateChapter($user, $project, $risks, $documentation, $bugs, $participation, $ambition, $training, $gradeChapter, $justification)
+    public function addEvaluateChapter($user, $project, $risks, $documentation, $analytical, $participation, $ambition, $training, $gradeChapter, $justification)
     {
         $array = array();
 
@@ -160,7 +160,7 @@ class Evaluate extends model
 
         $row = $sql->fetch();
 
-        $total = ($row['config_chapter'] / $row['config_squad']) * ($risks + $documentation + $bugs + $participation + $ambition + $training);
+        $total = ($row['config_chapter'] / $row['config_squad']) * ($risks + $documentation + $analytical + $participation + $ambition + $training);
         $grade = sprintf('%.2f', ($total + ($gradeChapter * ($row['config_chapter'] / 10))) / 2);
 
         $average = $row['config_chapter'] * ($row['config_average'] / 100);
@@ -184,7 +184,7 @@ class Evaluate extends model
 
             $evaluate_id = $array['id'];
 
-            $sql = "INSERT INTO evaluate_chapter SET fk_evaluate_id = '$evaluate_id', risks = '$risks', documentation = '$documentation', bugs = '$bugs', participation = '$participation', ambition = '$ambition', training = '$training'";
+            $sql = "INSERT INTO evaluate_chapter SET fk_evaluate_id = '$evaluate_id', risks = '$risks', documentation = '$documentation', analytical = '$analytical', participation = '$participation', ambition = '$ambition', training = '$training'";
             $sql = $this->db->query($sql);
 
 

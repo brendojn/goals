@@ -21,8 +21,10 @@
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <?php $u = new User(); ?>
-                    <?php $isLead = $u->isLead($_SESSION['logged']); ?>
-                    <?php if (isset($_SESSION['logged']) && !empty($_SESSION['logged']) && $isLead == true): ?>
+                    <?php $isLead = $u->isLead(); ?>
+                    <?php $isLeadChapter = $u->isLeadChapter(); ?>
+                    <?php $isLeadSquad = $u->isLeadSquad(); ?>
+                    <?php if (isset($_SESSION['logged']) && !empty($_SESSION['logged']) && $isLeadChapter == true): ?>
                         <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
                         <li><a href="<?php echo BASE_URL; ?>recovery">Recuperação</a></li>
                         <li><a href="<?php echo BASE_URL; ?>projects">Avaliações QA</a></li>
@@ -30,6 +32,9 @@
                         <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
                     <?php elseif (isset($_SESSION['logged']) && !empty($_SESSION['logged']) && $isLead == false): ?>
                         <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
+                    <?php elseif (isset($_SESSION['logged']) && !empty($_SESSION['logged']) && $isLeadSquad == true): ?>
+                        <li><a href="<?php echo BASE_URL; ?>projects">Avaliações QA</a></li>
                         <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
                     <?php else: ?>
                         <li><a href="<?php echo BASE_URL; ?>add">Cadastre-se</a></li>
