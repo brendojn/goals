@@ -49,6 +49,7 @@ if (empty($_SESSION['logged'])) {
         <?php
         foreach ($employees as $employee):
             ?>
+        <?php if ($employee['squad_lead'] === NULL) : ?>
             <tr>
                 <?php if ($employee['qtd_recovery'] > 2): ?>
                 <td class="danger"><?php echo $employee['name']; ?></td>
@@ -60,6 +61,7 @@ if (empty($_SESSION['logged'])) {
                 <td><?php echo $employee['qtd_recovery']; ?></td>
                 <?php endif; ?>
             </tr>
+        <?php endif; ?>
         <?php endforeach; ?>
     </table>
 
