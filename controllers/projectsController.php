@@ -18,6 +18,9 @@ class projectsController extends controller
         $p = new Payment();
         $e = new Employee();
         $te = new TypeEvaluate();
+        $u = new User();
+
+        $user = $u->getUserById($_SESSION['logged']);
 
         $filters = array(
             'employee' => '',
@@ -46,6 +49,7 @@ class projectsController extends controller
         $data['employees'] = $e->getEmployees();
         $data['filters'] = $filters;
         $data['total_pages'] = $total_pages;
+        $data['squadLead'] = $u->isLeadSquad($user);
 
         $this->loadTemplate('projects', $data);
     }

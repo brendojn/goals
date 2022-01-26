@@ -86,7 +86,7 @@ if (empty($_SESSION['logged'])) {
                         <a href="<?php echo BASE_URL; ?>projects/evaluateSkills/<?php echo $project['id']; ?>"
                            class="btn btn-warning">Avaliar a nível de skill</a>
                     <?php endif; ?>
-                    <?php if ($project['evaluate'] == 1) : ?>
+                    <?php if ($project['evaluate'] == 1 && !$squadLead) : ?>
                         <a href="<?php echo BASE_URL; ?>projects/info/<?php echo $project['id']; ?>"
                            class="btn btn-info">Informações</a>
                     <?php endif; ?>
