@@ -24,6 +24,7 @@ class Employee extends model
         if (!empty($filters['type'])) {
             $sql->bindValue(':type', $filters['type']);
         }
+//        print_r($sql);die();
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
@@ -49,10 +50,27 @@ class Employee extends model
 
             $sql = $this->db->query($sql);
 
-
             header("Location: " . BASE_URL . "employees");
         } else {
             return "QA já cadastrado";
         }
+    }
+
+    public function countEvaluate($employee)
+    {
+        $array = array();
+
+        $sql = "SELECT COUNT(*) AS qtd_eval FROM projects p
+                JOIN employees e
+                ON e.id = p.fk_employee_id
+                WHERE e.id = '$employee'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetch();
+        }
+
+        return $array['qtd_eval'];
+
     }
 }

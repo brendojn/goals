@@ -19,7 +19,9 @@ if (empty($_SESSION['logged'])) {
                         <select id="employee" name="filters[employee]" class="form-control">
                             <option></option>
                             <?php foreach ($employees as $employee): ?>
-                                <option value="<?php echo $employee['id']; ?>" <?php echo ($employee['id'] == $filters['employee']) ? 'selected="selected"' : ''; ?>><?php echo utf8_encode($employee['name']); ?></option>
+                                <?php if ($employee['squad_lead'] === NULL) : ?>
+                                    <option value="<?php echo $employee['id']; ?>" <?php echo ($employee['id'] == $filters['employee']) ? 'selected="selected"' : ''; ?>><?php echo utf8_encode($employee['name']); ?></option>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -39,7 +41,7 @@ if (empty($_SESSION['logged'])) {
                     <div class="form-group">
                         <a href="<?php echo BASE_URL; ?>projects/add" class="btn btn-default">Adicionar Período</a>
                         <?php if (!isset($_GET['filters'])) : ?>
-                        <input type="submit" class="btn btn-outline-primary" value="Aplicar filtro(s)"/>
+                            <input type="submit" class="btn btn-outline-primary" value="Aplicar filtro(s)"/>
                         <?php endif; ?>
                         <?php if (isset($_GET['filters'])) : ?>
                             <a href="<?php echo BASE_URL; ?>projects" class="btn btn-outline-info">Limpar filtro(s)</a>
@@ -76,7 +78,7 @@ if (empty($_SESSION['logged'])) {
                         <a href="<?php echo BASE_URL; ?>projects/evaluateSquad/<?php echo $project['id']; ?>"
                            class="btn btn-primary">Avaliar a nível de squad</a>
                     <?php endif; ?>
-                    <?php if ((!$project['chapter'] == 1) && ($project['fk_type_evaluate_id'] == 2 )) : ?>
+                    <?php if ((!$project['chapter'] == 1) && ($project['fk_type_evaluate_id'] == 2)) : ?>
                         <a href="<?php echo BASE_URL; ?>projects/evaluateChapter/<?php echo $project['id']; ?>"
                            class="btn btn-info">Avaliar a nível de chapter</a>
                     <?php endif; ?>

@@ -49,16 +49,26 @@ if (empty($_SESSION['logged'])) {
         <?php
         foreach ($employees as $employee):
             ?>
-        <?php if ($employee['squad_lead'] === NULL) : ?>
+            <?php $e = new Employee(); ?>
+            <?php $qtdEvaluate = $e->countEvaluate($employee['id']); ?>
+            <?php if ($employee['squad_lead'] === NULL) : ?>
             <tr>
                 <?php if ($employee['qtd_recovery'] > 2): ?>
-                <td class="danger"><?php echo $employee['name']; ?></td>
-                <td class="danger"><?php echo $employee['grade']; ?></td>
-                <td class="danger"><?php echo $employee['qtd_recovery']; ?></td>
+                    <td class="danger"><?php echo $employee['name']; ?></td>
+                    <?php if ($qtdEvaluate > 0) : ?>
+                        <td class="danger"><?php echo $employee['grade'] / $qtdEvaluate; ?></td>
+                    <?php else : ?>
+                        <td class="danger"><?php echo 0; ?></td>
+                    <?php endif; ?>
+                    <td class="danger"><?php echo $employee['qtd_recovery']; ?></td>
                 <?php else : ?>
-                <td><?php echo $employee['name']; ?></td>
-                <td><?php echo $employee['grade']; ?></td>
-                <td><?php echo $employee['qtd_recovery']; ?></td>
+                    <td><?php echo $employee['name']; ?></td>
+                    <?php if ($qtdEvaluate > 0) : ?>
+                        <td><?php echo $employee['grade'] / $qtdEvaluate; ?></td>
+                    <?php else : ?>
+                        <td><?php echo 0; ?></td>
+                    <?php endif; ?>
+                    <td><?php echo $employee['qtd_recovery']; ?></td>
                 <?php endif; ?>
             </tr>
         <?php endif; ?>
