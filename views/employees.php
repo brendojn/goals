@@ -50,7 +50,11 @@ if (empty($_SESSION['logged'])) {
         foreach ($employees as $employee):
             ?>
             <?php $e = new Employee(); ?>
+            <?php if (isset($_GET['filters'])) : ?>
+            <?php $qtdEvaluate = $e->countEvaluate($employee['id'], $employee['fk_type_evaluate_id']); ?>
+        <?php else : ?>
             <?php $qtdEvaluate = $e->countEvaluate($employee['id']); ?>
+        <?php endif; ?>
             <?php if ($employee['squad_lead'] === NULL) : ?>
             <tr>
                 <?php if ($employee['qtd_recovery'] > 2): ?>

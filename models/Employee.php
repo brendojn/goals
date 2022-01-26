@@ -13,7 +13,7 @@ class Employee extends model
             $filtrostring[] = 'te.id = :type';
         }
 
-        $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade) as grade, qtd_recovery, e.chapter_lead, e.squad_lead FROM employees e
+        $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, p.fk_type_evaluate_id FROM employees e
                 LEFT JOIN projects p
                 ON p.fk_employee_id = e.id
                 LEFT JOIN type_evaluate te
@@ -56,14 +56,21 @@ class Employee extends model
         }
     }
 
-    public function countEvaluate($employee)
+    public function countEvaluate($employee, $typeEvaluate = NULL)
     {
         $array = array();
 
-        $sql = "SELECT COUNT(*) AS qtd_eval FROM projects p
+        if ($typeEvaluate === NULL) {
+            $sql = "SELECT COUNT(*) AS qtd_eval FROM projects p
                 JOIN employees e
                 ON e.id = p.fk_employee_id
                 WHERE e.id = '$employee'";
+        } else {
+            $sql = "SELECT COUNT(*) AS qtd_eval FROM projects p
+                JOIN employees e
+                ON e.id = p.fk_employee_id
+                WHERE e.id = '$employee' AND p.fk_type_evaluate_id = '$typeEvaluate'";
+        }
         $sql = $this->db->query($sql);
 
         if ($sql->rowCount() > 0) {
