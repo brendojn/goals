@@ -53,9 +53,7 @@ class Evaluate extends model
         $row = $sql->fetch();
 
         $total = $collaboration + $qa_in_squad + $communication + $bugs + $automation + $business;
-
-        $grade = sprintf('%.2f', ((($total / $row['config_squad']) * 100) + ($gradeSquad * ($row['config_squad'] / 10))) / 2);
-
+        $grade = sprintf('%.2f', ($total + ($gradeSquad * ($row['config_squad'] / 10))) / 2);
         if ($grade > $row['config_squad']) {
             $grade = 60;
         }
