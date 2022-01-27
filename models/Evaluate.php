@@ -109,6 +109,9 @@ class Evaluate extends model
                 $sql = $this->db->query($sql);
             }
 
+            $sql = "UPDATE employees SET qtd_evaluate = qtd_evaluate + 1 WHERE id = '$employee_id'";
+            $sql = $this->db->query($sql);
+
             header("Location: " . BASE_URL . "projects");
         } else {
             return "Plantão já se encontra avaliado";
@@ -214,6 +217,9 @@ class Evaluate extends model
                 $sql = $this->db->query($sql);
             }
 
+            $sql = "UPDATE employees SET qtd_evaluate = qtd_evaluate + 1 WHERE id = '$employee_id'";
+            $sql = $this->db->query($sql);
+
             header("Location: " . BASE_URL . "projects");
         } else {
             return "Plantão já se encontra avaliado";
@@ -284,6 +290,9 @@ class Evaluate extends model
                 $sql = "UPDATE employees SET qtd_recovery = qtd_recovery + 1 WHERE id = '$employee_id'";
                 $sql = $this->db->query($sql);
             }
+
+            $sql = "UPDATE employees SET qtd_evaluate = qtd_evaluate + 1 WHERE id = '$employee_id'";
+            $sql = $this->db->query($sql);
 
             header("Location: " . BASE_URL . "projects");
         } else {

@@ -59,19 +59,11 @@ if (empty($_SESSION['logged'])) {
             <tr>
                 <?php if ($employee['qtd_recovery'] > 2): ?>
                     <td class="danger"><?php echo $employee['name']; ?></td>
-                    <?php if ($qtdEvaluate > 0) : ?>
-                        <td class="danger"><?php echo $employee['grade'] / $qtdEvaluate; ?></td>
-                    <?php else : ?>
-                        <td class="danger"><?php echo 0; ?></td>
-                    <?php endif; ?>
+                    <td class="danger"><?php echo $employee['grade']; ?></td>
                     <td class="danger"><?php echo $employee['qtd_recovery']; ?></td>
                 <?php else : ?>
                     <td><?php echo $employee['name']; ?></td>
-                    <?php if ($qtdEvaluate > 0) : ?>
-                        <td><?php echo $employee['grade'] / $qtdEvaluate; ?></td>
-                    <?php else : ?>
-                        <td><?php echo 0; ?></td>
-                    <?php endif; ?>
+                    <td><?php echo $employee['grade']; ?></td>
                     <td><?php echo $employee['qtd_recovery']; ?></td>
                 <?php endif; ?>
             </tr>
