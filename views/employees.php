@@ -59,11 +59,11 @@ if (empty($_SESSION['logged'])) {
             <tr>
                 <?php if ($employee['qtd_recovery'] > 2): ?>
                     <td class="danger"><?php echo $employee['name']; ?></td>
-                    <td class="danger"><?php echo $employee['grade']; ?></td>
+                    <td class="danger"><?php echo number_format($employee['grade'], 2); ?></td>
                     <td class="danger"><?php echo $employee['qtd_recovery']; ?></td>
                 <?php else : ?>
                     <td><?php echo $employee['name']; ?></td>
-                    <td><?php echo $employee['grade']; ?></td>
+                    <td><?php echo number_format($employee['grade'], 2); ?></td>
                     <td><?php echo $employee['qtd_recovery']; ?></td>
                 <?php endif; ?>
             </tr>
