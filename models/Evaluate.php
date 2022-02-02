@@ -109,7 +109,7 @@ class Evaluate extends model
                 $sql = $this->db->query($sql);
             }
 
-            $sql = "UPDATE employees SET qtd_evaluate = qtd_evaluate + 1 WHERE id = '$employee_id'";
+            $sql = "UPDATE employees SET qtd_evaluate_squad = qtd_evaluate_squad + 1 WHERE id = '$employee_id'";
             $sql = $this->db->query($sql);
 
             header("Location: " . BASE_URL . "projects");
@@ -217,7 +217,7 @@ class Evaluate extends model
                 $sql = $this->db->query($sql);
             }
 
-            $sql = "UPDATE employees SET qtd_evaluate = qtd_evaluate + 1 WHERE id = '$employee_id'";
+            $sql = "UPDATE employees SET qtd_evaluate_chapter = qtd_evaluate_chapter + 1 WHERE id = '$employee_id'";
             $sql = $this->db->query($sql);
 
             header("Location: " . BASE_URL . "projects");
@@ -291,7 +291,7 @@ class Evaluate extends model
                 $sql = $this->db->query($sql);
             }
 
-            $sql = "UPDATE employees SET qtd_evaluate = qtd_evaluate + 1 WHERE id = '$employee_id'";
+            $sql = "UPDATE employees SET qtd_evaluate_skill = qtd_evaluate_skill + 1 WHERE id = '$employee_id'";
             $sql = $this->db->query($sql);
 
             header("Location: " . BASE_URL . "projects");
