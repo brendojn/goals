@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <h4>SISTEMA DE PAGAMENTO DE METAS - 123MILHAS/BUSCAFÁCIL</h4>
+    <h4>SISTEMA DE PLANO DE ESTUDOS - 123MILHAS/BUSCAFÁCIL</h4>
     <img src="<?php echo BASE_URL; ?>assets/images/logo-123Milhas.png" id="centro" />
 </div>
 </body>
