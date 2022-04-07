@@ -107,6 +107,24 @@ class Employee extends model
         }
 
         return $array['qtd_eval'];
-
     }
+
+    public function getEmployeeByUser() {
+        $array = array();
+
+        $user_id = $this->getUserById($_SESSION['logged']);
+
+        $sql = "SELECT e.id FROM employees e
+                JOIN users u 
+                ON u.id = e.fk_user_id 
+                WHERE u.id = '$user_id'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetch();
+        }
+
+        return $array['id'];
+    }
+
 }
