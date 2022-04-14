@@ -41,9 +41,7 @@ if (empty($_SESSION['logged'])) {
         <?php if ($evaluates['justification'] !== '') : ?>
         <div class="form-group">
             <label for="value">Justificativa:</label>
-            <input type="text" name="justification" id="justification" class="form-control"
-                   value="<?php echo $evaluates['justification'] ?>"
-                   disabled/>
+            <textarea class="form-control" rows="5" id="justification" name="justification" disabled><?php echo $evaluates['justification'] ?></textarea>
         </div>
         <?php endif; ?>
 

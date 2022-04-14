@@ -67,12 +67,12 @@ class StudPlan extends model
                     WHERE u.id = '$user'";
             $sql = $this->db->query($sql);
         } else {
-            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at FROM studies_plan sp
+            $sql = "SELECT sp.id, e.name, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at FROM studies_plan sp
             JOIN employees e
             ON e.id = sp.fk_employee_id
             WHERE e.fk_user_id = '$user'
             UNION
-            SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at
+            SELECT sp.id, e.name, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at
             FROM studies_plan sp
             JOIN users u ON u.id = sp.fk_user_id
             JOIN employees e ON e.id = sp.fk_employee_id

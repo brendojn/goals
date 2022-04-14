@@ -15,9 +15,7 @@ if (empty($_SESSION['logged'])) {
     <table class="table table-striped">
         <thead>
         <tr>
-            <?php if ($lead === true) : ?>
-                <th>Nome</th>
-            <?php endif; ?>
+            <th>Nome</th>
             <th>Título</th>
             <th>Data de Criação</th>
             <th>Data de Vencimento</th>
@@ -31,9 +29,7 @@ if (empty($_SESSION['logged'])) {
             <?php else: ?>
                 <tr>
             <?php endif; ?>
-            <?php if ($lead === true) : ?>
-                <td><?php echo $plan['name']; ?></td>
-            <?php endif; ?>
+            <td><?php echo $plan['name']; ?></td>
             <td><?php echo $plan['title']; ?></td>
             <?php $createdDate = explode(' ', $plan['created_at']); ?>
             <?php $createdDate[0] = implode("/", array_reverse(explode("-", $createdDate[0]))); ?>
