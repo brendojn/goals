@@ -24,36 +24,24 @@ class StudPlan extends model
     public function getPlans($user)
     {
         $array = array();
-        $isBeginner = $array;
-        $sponsor = null;
 
         $u = new User();
         $isLead = $u->isLead();
 
-        $b = new Beginner();
-        $beginner = $b->getBeginnersByUser($user);
-
-        $isSponsor = $beginner['fk_employee_id'];
-        $isBeginner = $beginner['fk_user_id'];
-
-        if (isset($isBeginner)) {
-            $sponsor = $u->getUserByEmployee($isSponsor);
-        }
-
-
-        if ($isLead === false && !isset($isBeginner) && $_SESSION['logged'] != $sponsor) {
-            $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, r.id AS recovery, e.name, sp.created_at
-                FROM studies_plan sp
-                JOIN recoveries r
-                ON r.id = sp.fk_recovery_id
-                JOIN employees e
-                ON e.id = r.fk_employee_id
-                JOIN users u 
-                ON u.id = e.fk_user_id
-                WHERE e.fk_user_id = '$user'";
+        if ($isLead === false) {
+            $sql = "SELECT sp.id, e.name, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at FROM studies_plan sp
+            JOIN employees e
+            ON e.id = sp.fk_employee_id
+            WHERE e.fk_user_id = '$user'
+            UNION
+            SELECT sp.id, e.name, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at
+            FROM studies_plan sp
+            JOIN users u ON u.id = sp.fk_user_id
+            JOIN employees e ON e.id = sp.fk_employee_id
+            WHERE u.id = '$user'";
+//            print_r($sql);die();
             $sql = $this->db->query($sql);
-
-        } elseif ($isLead === true && !isset($isBeginner) && $_SESSION['logged'] != $sponsor) {
+        } else {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, sp.created_at, r.id AS recovery, e.name
                     FROM studies_plan sp
                     JOIN recoveries r ON r.id = sp.fk_recovery_id
@@ -65,20 +53,8 @@ class StudPlan extends model
                     JOIN employees e 
                     ON e.id = sp.fk_employee_id
                     WHERE u.id = '$user'";
+//            print_r($sql);die();
             $sql = $this->db->query($sql);
-        } else {
-            $sql = "SELECT sp.id, e.name, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at FROM studies_plan sp
-            JOIN employees e
-            ON e.id = sp.fk_employee_id
-            WHERE e.fk_user_id = '$user'
-            UNION
-            SELECT sp.id, e.name, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at
-            FROM studies_plan sp
-            JOIN users u ON u.id = sp.fk_user_id
-            JOIN employees e ON e.id = sp.fk_employee_id
-            WHERE u.id = '$user'";
-            $sql = $this->db->query($sql);
-
         }
 
         if ($sql->rowCount() > 0) {
