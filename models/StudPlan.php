@@ -105,7 +105,8 @@ class StudPlan extends model
             FROM studies_plan sp
             JOIN users u ON u.id = sp.fk_user_id
             JOIN employees e ON e.id = sp.fk_employee_id
-            WHERE u.id = '$user'";
+            WHERE u.id = '$user'
+            AND sp.id = '$id'";
             $sql = $this->db->query($sql);
         } else {
             $sql = "SELECT sp.id, sp.title, sp.description, sp.due_date, sp.status, sp.created_at, r.id AS recovery, e.name
@@ -118,7 +119,8 @@ class StudPlan extends model
                     JOIN users u ON u.id = sp.fk_user_id
                     JOIN employees e 
                     ON e.id = sp.fk_employee_id
-                    WHERE u.id = '$user'";
+                    WHERE u.id = '$user'
+                    AND sp.id = '$id'";
             $sql = $this->db->query($sql);
         }
 
