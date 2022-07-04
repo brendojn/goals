@@ -318,6 +318,81 @@ class Evaluate extends model
 
     }
 
+
+    public function addEvaluateExperience($user, $project, $communication, $seniority, $feedback, $proactivity, $justification)
+    {
+        $array = array();
+
+        $sql = "SELECT * from configuration ORDER BY id DESC LIMIT 1";
+        $sql = $this->db->query($sql);
+
+        $row = $sql->fetch();
+
+        $total = $communication + $seniority + $feedback + $proactivity + $justification;
+        $grade = sprintf('%.2f', $total);
+
+        $average = $row['config_experience'] * ($row['config_average'] / 100);
+
+        $sql = "SELECT * FROM projects WHERE id = '$project' AND evaluate = '0'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() == 1) {
+            $sql = "UPDATE projects SET grade = grade + '$grade' WHERE id = '$project'";
+            $sql = $this->db->query($sql);
+
+            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', experience = 1, justification = '$justification'";
+            $sql = $this->db->query($sql);
+
+            $sql = "SELECT * FROM evaluates ORDER BY id DESC LIMIT 1";
+            $sql = $this->db->query($sql);
+
+            if ($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+            }
+
+            $evaluate_id = $array['id'];
+
+            $sql = "INSERT INTO evaluate_experience SET fk_evaluate_id = '$evaluate_id', communication = '$communication', seniority = '$seniority', feedback = '$feedback', proactivity = '$proactivity'";
+            $sql = $this->db->query($sql);
+
+
+            $sql = "SELECT squad, chapter, skill, experience, fk_employee_id, fk_type_evaluate_id FROM projects p
+                    JOIN evaluates e
+                    ON e.fk_project_id = p.id
+                    WHERE p.id = '$project'
+                    ORDER BY p.id ASC LIMIT 1";
+            $sql = $this->db->query($sql);
+
+            if ($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+            }
+
+            if (isset($array['experience']) || $array['fk_type_evaluate_id'] == 5) {
+                $sql = "UPDATE projects SET evaluate = '1' WHERE id = '$project'";
+                $sql = $this->db->query($sql);
+            }
+
+            $employee_id = $array['fk_employee_id'];
+            $today = date("Y-m-d H:i:s");
+
+            if ($average > $grade) {
+                $sql = "INSERT INTO recoveries SET fk_employee_id = '$employee_id', fk_project_id = '$project', grade_plan = $average - $grade, su0btract_plan = $average - $grade, created_at = '$today', updated_at = '$today'";
+
+                $sql = $this->db->query($sql);
+
+                $sql = "UPDATE employees SET qtd_recovery = qtd_recovery + 1 WHERE id = '$employee_id'";
+                $sql = $this->db->query($sql);
+            }
+
+            $sql = "UPDATE employees SET qtd_evaluate_experience = qtd_evaluate_experience + 1 WHERE id = '$employee_id'";
+            $sql = $this->db->query($sql);
+
+            header("Location: " . BASE_URL . "projects");
+        } else {
+            return "Avaliação já realizada";
+        }
+    }
+
 }
 
 

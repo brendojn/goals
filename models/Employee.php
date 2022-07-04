@@ -53,7 +53,6 @@ class Employee extends model
         if (!empty($filters['type'])) {
             $sql->bindValue(':type', $filters['type']);
         }
-//        print_r($sql);die();
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
