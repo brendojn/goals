@@ -69,14 +69,30 @@ class Employee extends model
         $sql = $this->db->query($sql);
     }
 
-    public function createEmployees($employee)
+    public function createEmployees($employee, $specialty)
     {
+        $t = new TypeSpecialty();
         $sql = "SELECT * FROM employees WHERE employees.name = '$employee'";
         $sql = $this->db->query($sql);
+        
+        $specialty_name = $t->getNameSpecialty($specialty);
 
         if ($sql->rowCount() == 0) {
-            $sql = "INSERT INTO employees SET employees.name = '$employee'";
+            switch ($specialty_name) {
+                case "Chapter Lead" :
+                    $sql = "INSERT INTO employees SET employees.name = '$employee', chapter_lead = 1";
+                    break;
+                case "Squad Lead" :
+                    $sql = "INSERT INTO employees SET employees.name = '$employee', squad_lead = 1";
+                    break;
+                case "PO" :
+                    $sql = "INSERT INTO employees SET employees.name = '$employee', po = 1";
+                    break;
+                case "Nenhuma" :
+                    $sql = "INSERT INTO employees SET employees.name = '$employee'";
+                    break;
 
+                }
             $sql = $this->db->query($sql);
 
             header("Location: " . BASE_URL . "employees");

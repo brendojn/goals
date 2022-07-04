@@ -40,12 +40,17 @@ class employeesController extends controller
         $data = array();
 
         $e = new Employee();
+        $t = new TypeSpecialty();
 
         if (isset($_POST['employee']) && !empty($_POST['employee'])) {
             $employee = addslashes($_POST['employee']);
+            $typeSpecialty = addslashes($_POST['type_specialty']);
 
-            $data['erro'] = $e->createEmployees($employee);
+            
+            $data['erro'] = $e->createEmployees($employee, $typeSpecialty);
         }
+
+        $data['specialties'] = $t->getTypeSpecialties();
 
 
         $this->loadTemplate('add-employees', $data);
