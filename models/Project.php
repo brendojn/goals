@@ -3,14 +3,13 @@
 class Project extends model
 {
 
-    public function createProject($employee, $week, $type, $grade = 0)
+    public function createProject($employee, $evaluator, $week, $type, $grade = 0)
     {
         $sql = "SELECT * FROM projects p WHERE fk_employee_id = '$employee' AND evaluate = '0'";
         $sql = $this->db->query($sql);
 
         if ($sql->rowCount() == 0) {
-            $sql = "INSERT INTO projects SET fk_employee_id = '$employee', week = '$week', grade = '$grade', fk_type_evaluate_id = '$type'";
-//            print_r($sql);die();
+            $sql = "INSERT INTO projects SET fk_employee_id = '$employee', evaluator_id = '$evaluator', week = '$week', grade = '$grade', fk_type_evaluate_id = '$type'";
             $sql = $this->db->query($sql);
 
             header("Location: " . BASE_URL . "projects");

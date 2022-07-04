@@ -39,6 +39,21 @@ if (empty($_SESSION['logged'])) {
         </div>
 
         <div class="form-group">
+            <label for="evaluator">Avaliador:</label>
+            <select name="evaluator" id="evaluator" class="form-control">
+                <?php
+                foreach ($employees as $employee):
+                    ?>
+                <?php if ($employee['squad_lead'] !== NULL || $employee['chapter_lead'] !== NULL || $employee['rh'] !== NULL || $employee['po'] !== NULL) : ?>
+                    <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                <?php endif; ?>
+                <?php
+                endforeach;
+                ?>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="type">Tipo de avaliação:</label>
             <select name="type" id="type" class="form-control">
                 <?php

@@ -65,9 +65,10 @@ class projectsController extends controller
         if (isset($_POST['week']) && !empty($_POST['week'])) {
             $week = addslashes($_POST['week']);
             $employee = addslashes($_POST['employee']);
+            $evaluator = addslashes($_POST['evaluator']);
             $type = addslashes($_POST['type']);
 
-            $data['erro'] = $p->createProject($employee, $week, $type);
+            $data['erro'] = $p->createProject($employee, $evaluator, $week, $type);
         }
 
         $data['employees'] = $e->getEmployees();

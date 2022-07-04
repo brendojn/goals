@@ -44,6 +44,7 @@ class Evaluate extends model
 
     public function addEvaluateSquad($user, $project, $collaboration, $qa_in_squad, $communication, $bugs, $automation, $business, $gradeSquad, $justification)
     {
+        $u = new User();
         $array = array();
 
         $sql = "SELECT * from configuration ORDER BY id DESC LIMIT 1";
@@ -63,11 +64,23 @@ class Evaluate extends model
         $sql = "SELECT * FROM projects WHERE id = '$project' AND evaluate = '0'";
         $sql = $this->db->query($sql);
 
+
+        $array = $sql->fetch();
+            
+        $evaluatorEmployee = $array['evaluator_id'];
+
+        $userEvaluator = $u->getUserByEmployee($evaluatorEmployee);
+
         if ($sql->rowCount() == 1) {
             $sql = "UPDATE projects SET grade = grade + '$grade' WHERE id = '$project'";
             $sql = $this->db->query($sql);
 
-            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
+
+            if (!empty($userEvaluator)) {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            } else {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            }
             $sql = $this->db->query($sql);
 
             $sql = "SELECT * FROM evaluates ORDER BY id DESC LIMIT 1";
@@ -153,10 +166,11 @@ class Evaluate extends model
 
     public function addEvaluateChapter($user, $project, $risks, $documentation, $analytical, $participation, $ambition, $training, $gradeChapter, $justification)
     {
+        $u = new User();
         $array = array();
-
+        
         $sql = "SELECT * from configuration ORDER BY id DESC LIMIT 1";
-
+        
         $sql = $this->db->query($sql);
 
         $row = $sql->fetch();
@@ -169,11 +183,22 @@ class Evaluate extends model
         $sql = "SELECT * FROM projects WHERE id = '$project' AND evaluate = '0'";
         $sql = $this->db->query($sql);
 
+
+        $array = $sql->fetch();
+            
+        $evaluatorEmployee = $array['evaluator_id'];
+
+        $userEvaluator = $u->getUserByEmployee($evaluatorEmployee);
+
         if ($sql->rowCount() == 1) {
             $sql = "UPDATE projects SET grade = grade + '$grade' WHERE id = '$project'";
             $sql = $this->db->query($sql);
 
-            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', chapter = 1, justification = '$justification'";
+            if (!empty($userEvaluator)) {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            } else {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            }
             $sql = $this->db->query($sql);
 
             $sql = "SELECT * FROM evaluates ORDER BY id DESC LIMIT 1";
@@ -210,7 +235,6 @@ class Evaluate extends model
 
             if ($average > $grade) {
                 $sql = "INSERT INTO recoveries SET fk_employee_id = '$employee_id', fk_project_id = '$project', grade_plan = $average - $grade, subtract_plan = $average - $grade, created_at = '$today', updated_at = '$today'";
-//                print_r($sql);die();
                 $sql = $this->db->query($sql);
 
                 $sql = "UPDATE employees SET qtd_recovery = qtd_recovery + 1 WHERE id = '$employee_id'";
@@ -228,6 +252,7 @@ class Evaluate extends model
 
     public function addEvaluateSkills($user, $project, $performance, $safety, $usability, $git, $story, $api, $justification)
     {
+        $u = new User();
         $array = array();
 
         $sql = "SELECT * from configuration ORDER BY id DESC LIMIT 1";
@@ -243,11 +268,21 @@ class Evaluate extends model
         $sql = "SELECT * FROM projects WHERE id = '$project' AND evaluate = '0'";
         $sql = $this->db->query($sql);
 
+        $array = $sql->fetch();
+            
+        $evaluatorEmployee = $array['evaluator_id'];
+
+        $userEvaluator = $u->getUserByEmployee($evaluatorEmployee);
+
         if ($sql->rowCount() == 1) {
             $sql = "UPDATE projects SET grade = grade + '$grade' WHERE id = '$project'";
             $sql = $this->db->query($sql);
 
-            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', skill = 1, justification = '$justification'";
+            if (!empty($userEvaluator)) {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            } else {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            }
             $sql = $this->db->query($sql);
 
             $sql = "SELECT * FROM evaluates ORDER BY id DESC LIMIT 1";
@@ -321,6 +356,7 @@ class Evaluate extends model
 
     public function addEvaluateExperience($user, $project, $communication, $seniority, $feedback, $proactivity, $justification)
     {
+        $u = new User();
         $array = array();
 
         $sql = "SELECT * from configuration ORDER BY id DESC LIMIT 1";
@@ -336,11 +372,21 @@ class Evaluate extends model
         $sql = "SELECT * FROM projects WHERE id = '$project' AND evaluate = '0'";
         $sql = $this->db->query($sql);
 
+        $array = $sql->fetch();
+            
+        $evaluatorEmployee = $array['evaluator_id'];
+
+        $userEvaluator = $u->getUserByEmployee($evaluatorEmployee);
+
         if ($sql->rowCount() == 1) {
             $sql = "UPDATE projects SET grade = grade + '$grade' WHERE id = '$project'";
             $sql = $this->db->query($sql);
 
-            $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', experience = 1, justification = '$justification'";
+            if (!empty($userEvaluator)) {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            } else {
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
+            }
             $sql = $this->db->query($sql);
 
             $sql = "SELECT * FROM evaluates ORDER BY id DESC LIMIT 1";
