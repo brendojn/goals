@@ -21,7 +21,7 @@ if (empty($_SESSION['logged'])) {
                     <?php
                     foreach ($employees as $employee):
                         ?>
-                        <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                        <option value="<?php echo $employee['id']; ?>"><?php echo $employee['name']; ?></option>
                     <?php
                     endforeach;
                     ?>

@@ -20,7 +20,7 @@ if (empty($_SESSION['logged'])) {
                             <option></option>
                             <?php foreach ($employees as $employee): ?>
                                 <?php if ($employee['squad_lead'] === NULL) : ?>
-                                    <option value="<?php echo $employee['id']; ?>" <?php echo ($employee['id'] == $filters['employee']) ? 'selected="selected"' : ''; ?>><?php echo utf8_encode($employee['name']); ?></option>
+                                    <option value="<?php echo $employee['id']; ?>" <?php echo ($employee['id'] == $filters['employee']) ? 'selected="selected"' : ''; ?>><?php echo ($employee['name']); ?></option>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>

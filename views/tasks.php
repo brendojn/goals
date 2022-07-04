@@ -23,7 +23,7 @@ if (empty($_SESSION['logged'])) {
                         <select id="employee" name="filters[employee]" class="form-control">
                             <option></option>
                             <?php foreach ($employees as $employee): ?>
-                                <option value="<?php echo $employee['id']; ?>" <?php echo ($employee['id'] == $filters['employee']) ? 'selected="selected"' : ''; ?>><?php echo utf8_encode($employee['name']); ?></option>
+                                <option value="<?php echo $employee['id']; ?>" <?php echo ($employee['id'] == $filters['employee']) ? 'selected="selected"' : ''; ?>><?php echo $employee['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

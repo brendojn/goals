@@ -15,7 +15,7 @@ class User extends model
     {
         $user_id = $this->getUserById($_SESSION['logged']);
 
-        $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, u.user FROM employees e
+        $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, e.rh, e.po, u.user FROM employees e
         JOIN users u
         ON u.id = e.fk_user_id
         WHERE u.id = '$user_id'";
@@ -24,7 +24,7 @@ class User extends model
         if ($sql->rowCount() > 0) {
             $sql = $sql->fetch();
 
-            if ($sql['chapter_lead'] === NULL && $sql['squad_lead'] === NULL) {
+            if ($sql['chapter_lead'] === NULL && $sql['squad_lead'] === NULL && $sql['rh'] === NULL && $sql['po'] === NULL ) {
                 header("Location: " . BASE_URL);
             }
         }
@@ -34,7 +34,7 @@ class User extends model
     {
         $user_id = $this->getUserById($_SESSION['logged']);
 
-        $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, u.user FROM employees e
+        $sql = "SELECT u.id, e.chapter_lead, e.squad_lead, e.rh, e.po, u.user FROM employees e
         JOIN users u
         ON u.id = e.fk_user_id
         WHERE u.id = '$user_id'";
@@ -43,7 +43,7 @@ class User extends model
         if ($sql->rowCount() > 0) {
             $sql = $sql->fetch();
 
-            if ($sql['chapter_lead'] === NULL && $sql['squad_lead'] === NULL) {
+            if ($sql['chapter_lead'] === NULL && $sql['squad_lead'] === NULL && $sql['rh'] === NULL && $sql['po'] === NULL ) {
                 return false;
             } else {
                 return true;
@@ -86,6 +86,48 @@ class User extends model
             $sql = $sql->fetch();
 
             if ($sql['chapter_lead'] === NULL) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public function isRh()
+    {
+        $user_id = $this->getUserById($_SESSION['logged']);
+
+        $sql = "SELECT u.id, e.rh, u.user FROM employees e
+        JOIN users u
+        ON u.id = e.fk_user_id
+        WHERE u.id = '$user_id'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            if ($sql['rh'] === NULL) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public function isPo()
+    {
+        $user_id = $this->getUserById($_SESSION['logged']);
+
+        $sql = "SELECT u.id, e.po, u.user FROM employees e
+        JOIN users u
+        ON u.id = e.fk_user_id
+        WHERE u.id = '$user_id'";
+        $sql = $this->db->query($sql);
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            if ($sql['po'] === NULL) {
                 return false;
             } else {
                 return true;

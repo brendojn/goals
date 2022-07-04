@@ -23,7 +23,7 @@ if (empty($_SESSION['logged'])) {
                 foreach ($employees as $employee):
                     ?>
                     <option value="<?php echo $employee['id']; ?>"
-                        <?php echo $getProject['id'] == $employee['id'] ? 'selected' : ''; ?> ><?php echo utf8_encode($employee['name']); ?></option>
+                        <?php echo $getProject['id'] == $employee['id'] ? 'selected' : ''; ?> ><?php echo $employee['name']; ?></option>
                 <?php
                 endforeach;
                 ?>

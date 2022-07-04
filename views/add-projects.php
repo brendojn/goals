@@ -30,7 +30,7 @@ if (empty($_SESSION['logged'])) {
                 foreach ($employees as $employee):
                     ?>
                 <?php if ($employee['squad_lead'] === NULL) : ?>
-                    <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                    <option value="<?php echo $employee['id']; ?>"><?php echo $employee['name']; ?></option>
                 <?php endif; ?>
                 <?php
                 endforeach;
@@ -45,7 +45,7 @@ if (empty($_SESSION['logged'])) {
                 foreach ($employees as $employee):
                     ?>
                 <?php if ($employee['squad_lead'] !== NULL || $employee['chapter_lead'] !== NULL || $employee['rh'] !== NULL || $employee['po'] !== NULL) : ?>
-                    <option value="<?php echo $employee['id']; ?>"><?php echo utf8_encode($employee['name']); ?></option>
+                    <option value="<?php echo $employee['id']; ?>"><?php echo $employee['name']; ?></option>
                 <?php endif; ?>
                 <?php
                 endforeach;

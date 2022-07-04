@@ -195,7 +195,7 @@ class Evaluate extends model
             $sql = $this->db->query($sql);
 
             if (!empty($userEvaluator)) {
-                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', squad = 1, justification = '$justification'";
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', chapter = 1, justification = '$justification'";
             } else {
                 $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
             }
@@ -279,7 +279,7 @@ class Evaluate extends model
             $sql = $this->db->query($sql);
 
             if (!empty($userEvaluator)) {
-                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', squad = 1, justification = '$justification'";
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', skill = 1, justification = '$justification'";
             } else {
                 $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
             }
@@ -383,7 +383,7 @@ class Evaluate extends model
             $sql = $this->db->query($sql);
 
             if (!empty($userEvaluator)) {
-                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', squad = 1, justification = '$justification'";
+                $sql = "INSERT INTO evaluates SET fk_user_id = '$userEvaluator', fk_project_id = '$project', experience = 1, justification = '$justification'";
             } else {
                 $sql = "INSERT INTO evaluates SET fk_user_id = '$user', fk_project_id = '$project', squad = 1, justification = '$justification'";
             }

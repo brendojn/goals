@@ -21,7 +21,7 @@ if (empty($_SESSION['logged'])) {
             <select name="type_specialty" id="type_specialty" class="form-control">
                 <?php
                 foreach ($specialties as $specialty): ?>
-                    <option value="<?php echo $specialty['id']; ?>"><?php echo utf8_encode($specialty['name']); ?></option>
+                    <option value="<?php echo $specialty['id']; ?>"><?php echo $specialty['name']; ?></option>
                 <?php
                 endforeach;
                 ?>
