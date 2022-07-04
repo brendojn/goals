@@ -7,12 +7,12 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
-    <h1>QA - Adicionar QA</h1>
+    <h1>Adicionar Especialista</h1>
 
     <form method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
-            <label for="task">Nome do QA:</label>
+            <label for="task">Nome do Especialista:</label>
             <input type="text" name="employee" id="employee" class="form-control"/>
         </div>
 

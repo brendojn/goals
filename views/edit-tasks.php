@@ -17,7 +17,7 @@ if (empty($_SESSION['logged'])) {
                    disabled/>
         </div>
         <div class="form-group">
-            <label for="employee">QA:</label>
+            <label for="employee">Especialista:</label>
             <select name="employee" id="employee" class="form-control">
                 <?php
                 foreach ($employees as $employee):

@@ -26,7 +26,7 @@ if (empty($_SESSION['logged'])) {
                     <br/>
                     <br/>
                     <div class="form-group">
-                        <a href="<?php echo BASE_URL; ?>employees/add" class="btn btn-default">Adicionar QA</a>
+                        <a href="<?php echo BASE_URL; ?>employees/add" class="btn btn-default">Adicionar Especialista</a>
                         <?php if (!isset($_GET['filters'])) : ?>
                             <input type="submit" class="btn btn-outline-primary" value="Aplicar filtro(s)"/>
                         <?php endif; ?>

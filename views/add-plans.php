@@ -7,7 +7,7 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
-    <h1>QA - Adicionar Plano de Estudo</h1>
+    <h1>Adicionar Plano de Estudo</h1>
 
     <form method="POST" enctype="multipart/form-data">
 
