@@ -15,7 +15,7 @@ if (empty($_SESSION['logged'])) {
                 <h4>Filtros avançados</h4>
                 <form method="GET">
                     <div class="col-xs-3 col-xs-offset-0">
-                        <label for="employee">Especialistas:</label>
+                        <label for="employee">Especialista:</label>
                         <select id="employee" name="filters[employee]" class="form-control">
                             <option></option>
                             <?php foreach ($employees as $employee): ?>

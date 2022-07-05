@@ -30,7 +30,7 @@
                         <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
                         <li><a href="<?php echo BASE_URL; ?>recovery">Recuperação</a></li>
                         <li><a href="<?php echo BASE_URL; ?>projects">Avaliações</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>employees">Especialistas</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>employees">Rankeamento</a></li>
                         <li><a href="<?php echo BASE_URL; ?>login/sair">Sair</a></li>
                     <?php elseif (isset($_SESSION['logged']) && !empty($_SESSION['logged']) && $isLeadChapter == true): ?>
                         <li><a href="<?php echo BASE_URL; ?>plans">Planos de Estudo</a></li>
