@@ -28,7 +28,7 @@ class StudPlan extends model
         $u = new User();
         $isLead = $u->isLead();
 
-        if ($isLead === false) {
+        if (empty($isLead)) {
             $sql = "SELECT sp.id, e.name, sp.title, sp.description, sp.due_date, sp.status, e.name, sp.created_at FROM studies_plan sp
             JOIN employees e
             ON e.id = sp.fk_employee_id
