@@ -50,6 +50,10 @@ class Project extends model
 
     public function getProjects($page, $per_page, $filters)
     {
+        $u = new User();
+
+        $user = $u->getUserById($_SESSION['logged']);
+
         $offset = ($page - 1) * $per_page;
 
         $array = array();
@@ -63,13 +67,22 @@ class Project extends model
         if (!empty($filters['type'])) {
             $filtrostring[] = 'te.id = :type';
         }
-
-        $sql = $this->db->prepare("SELECT p.id, p.week, e.name, p.grade, p.evaluate, p.fk_type_evaluate_id, count(eval.squad) AS squad, count(eval.chapter) AS chapter, count(eval.skill) AS skill, count(eval.experience) AS experience, te.name AS name_type
+        
+        if ($u->isRh()) {
+            $sql = $this->db->prepare("SELECT p.id, p.week, p.evaluator_id, e.name, p.grade, p.evaluate, p.fk_type_evaluate_id, count(eval.squad) AS squad, count(eval.chapter) AS chapter, count(eval.skill) AS skill, count(eval.experience) AS experience, te.name AS name_type
                         FROM projects p
                         JOIN employees e ON (e.id = p.fk_employee_id)
                         LEFT JOIN evaluates eval ON (eval.fk_project_id = p.id)
                         JOIN type_evaluate te ON (te.id = p.fk_type_evaluate_id)
                         WHERE " . implode(' AND ', $filtrostring) . " GROUP BY id ORDER BY id DESC LIMIT $offset, $per_page");
+        } else {
+        $sql = $this->db->prepare("SELECT p.id, p.week, p.evaluator_id, e.name, p.grade, p.evaluate, p.fk_type_evaluate_id, count(eval.squad) AS squad, count(eval.chapter) AS chapter, count(eval.skill) AS skill, count(eval.experience) AS experience, te.name AS name_type
+                        FROM projects p
+                        JOIN employees e ON (e.id = p.fk_employee_id)
+                        LEFT JOIN evaluates eval ON (eval.fk_project_id = p.id)
+                        JOIN type_evaluate te ON (te.id = p.fk_type_evaluate_id)
+                        WHERE " . implode(' AND ', $filtrostring) . " AND p.evaluator_id = '$user' GROUP BY id ORDER BY id DESC LIMIT $offset, $per_page");
+        }
         if (!empty($filters['employee'])) {
             $sql->bindValue(':id_employee', $filters['employee']);
         }
