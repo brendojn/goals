@@ -19,14 +19,11 @@ class User extends model
         JOIN users u
         ON u.id = e.fk_user_id
         WHERE u.id = '$user_id'";
+        // print_r($sql);die();
         $sql = $this->db->query($sql);
 
-        if ($sql->rowCount() > 0) {
-            $sql = $sql->fetch();
-
-            if ($sql['chapter_lead'] === NULL && $sql['squad_lead'] === NULL && $sql['rh'] === NULL && $sql['po'] === NULL ) {
-                header("Location: " . BASE_URL);
-            }
+        if ($sql->rowCount() === 0) {
+              header("Location: " . BASE_URL);
         }
     }
 
