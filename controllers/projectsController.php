@@ -100,7 +100,7 @@ class projectsController extends controller
             $employee = addslashes($_POST['employee']);
             $evaluator = addslashes($_POST['evaluator']);
 
-            $p->editTasks($id, $employee, $evaluator);
+            $p->editProject($id, $employee, $evaluator);
             header("Location: " . BASE_URL . "projects");
         }
 
