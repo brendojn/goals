@@ -14,7 +14,7 @@ class Employee extends model
         }
 
         if ($filters['type'] == 2) {
-            $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade / e.qtd_evaluate_chapter) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po p.fk_type_evaluate_id FROM employees e
+            $sql = $this->db->prepare("SELECT e.id, e.fk_user_id, e.name, SUM(p.grade / e.qtd_evaluate_chapter) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po p.fk_type_evaluate_id FROM employees e
                 LEFT JOIN projects p
                 ON p.fk_employee_id = e.id
                 LEFT JOIN type_evaluate te
@@ -23,7 +23,7 @@ class Employee extends model
                 GROUP BY e.id
                 ORDER BY grade DESC");
         } elseif ($filters['type'] == 3) {
-            $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade / e.qtd_evaluate_squad) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po, p.fk_type_evaluate_id FROM employees e
+            $sql = $this->db->prepare("SELECT e.id, e.fk_user_id, e.name, SUM(p.grade / e.qtd_evaluate_squad) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po, p.fk_type_evaluate_id FROM employees e
                 LEFT JOIN projects p
                 ON p.fk_employee_id = e.id
                 LEFT JOIN type_evaluate te
@@ -32,7 +32,7 @@ class Employee extends model
                 GROUP BY e.id
                 ORDER BY grade DESC");
         } elseif ($filters['type'] == 4) {
-            $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade / e.qtd_evaluate_skill) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po, p.fk_type_evaluate_id FROM employees e
+            $sql = $this->db->prepare("SELECT e.id, e.fk_user_id, e.name, SUM(p.grade / e.qtd_evaluate_skill) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po, p.fk_type_evaluate_id FROM employees e
                 LEFT JOIN projects p
                 ON p.fk_employee_id = e.id
                 LEFT JOIN type_evaluate te
@@ -41,7 +41,7 @@ class Employee extends model
                 GROUP BY e.id
                 ORDER BY grade DESC");
         } else {
-            $sql = $this->db->prepare("SELECT e.id, e.name, SUM(p.grade / (e.qtd_evaluate_skill + e.qtd_evaluate_squad + e.qtd_evaluate_chapter)) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po, p.fk_type_evaluate_id FROM employees e
+            $sql = $this->db->prepare("SELECT e.id, e.fk_user_id, e.name, SUM(p.grade / (e.qtd_evaluate_skill + e.qtd_evaluate_squad + e.qtd_evaluate_chapter)) as grade, qtd_recovery, e.chapter_lead, e.squad_lead, e.rh, e.po, p.fk_type_evaluate_id FROM employees e
                 LEFT JOIN projects p
                 ON p.fk_employee_id = e.id
                 LEFT JOIN type_evaluate te

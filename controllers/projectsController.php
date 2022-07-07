@@ -26,7 +26,7 @@ class projectsController extends controller
             'employee' => '',
             'type' => ''
         );
-
+        
         if (isset($_GET['filters'])) {
             $filters = $_GET['filters'];
         }
