@@ -364,7 +364,7 @@ class Evaluate extends model
 
         $row = $sql->fetch();
 
-        $total = $communication + $seniority + $feedback + $proactivity + $justification;
+        $total = $communication + $seniority + $feedback + $proactivity + 1;
         $grade = sprintf('%.2f', $total);
 
         $average = $row['config_experience'] * ($row['config_average'] / 100);
