@@ -7,12 +7,12 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
-    <h1>Recuperação - Informações</h1>
+    <h1>Avaliação - Informações</h1>
 
     <form method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
-            <label for="week">Semana do plantão:</label>
+            <label for="week">Período de avaliação:</label>
             <input type="text" name="week" id="week" class="form-control" value="<?php echo $project['week']; ?>"
                    disabled/>
         </div>
