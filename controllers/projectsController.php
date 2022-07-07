@@ -50,6 +50,7 @@ class projectsController extends controller
         $data['filters'] = $filters;
         $data['total_pages'] = $total_pages;
         $data['squadLead'] = $u->isLeadSquad($user);
+        $data['isRh'] = $u->isRh();
 
         $this->loadTemplate('projects', $data);
     }
@@ -97,8 +98,9 @@ class projectsController extends controller
 
         if (isset($_POST['employee']) && !empty($_POST['employee'])) {
             $employee = addslashes($_POST['employee']);
+            $evaluator = addslashes($_POST['evaluator']);
 
-            $p->editTasks($id, $employee);
+            $p->editTasks($id, $employee, $evaluator);
             header("Location: " . BASE_URL . "projects");
         }
 

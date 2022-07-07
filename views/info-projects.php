@@ -27,7 +27,7 @@ if (empty($_SESSION['logged'])) {
         <div class="form-group">
             <label for="value">Avaliador:</label>
             <input type="text" name="user_v" id="user_v" class="form-control"
-                   value="<?php echo $evaluates['user'] ?>"
+                   value="<?php echo $evaluates['name'] ?>"
                    disabled/>
         </div>
 

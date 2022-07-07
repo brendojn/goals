@@ -152,7 +152,7 @@ class Evaluate extends model
     {
         $array = array();
 
-        $sql = "SELECT u.user, e.justification
+        $sql = "SELECT u.user, u.name, e.justification
                 FROM evaluates e
                 JOIN projects p ON (p.id = e.fk_project_id)
                 JOIN users u ON (u.id = e.fk_user_id)

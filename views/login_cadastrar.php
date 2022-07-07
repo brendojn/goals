@@ -34,6 +34,11 @@
 	        		<input type="text" class="form-control" name="user" id="user" />
 	        	</div>
 
+				<div class="form-group">
+	        		<label for="nome">Nome e Sobrenome:</label>
+	        		<input type="text" class="form-control" name="name" id="name" />
+	        	</div>
+
 	        	<div class="form-group">
 	        		<label for="password">Senha:</label>
 	        		<input type="password" class="form-control" name="password" id="password" />

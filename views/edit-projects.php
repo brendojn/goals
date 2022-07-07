@@ -30,6 +30,23 @@ if (empty($_SESSION['logged'])) {
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="evaluator">Avaliador:</label>
+            <select name="evaluator" id="evaluator" class="form-control">
+                <?php
+                foreach ($employees as $employee):
+                    ?>
+                <?php if ($employee['squad_lead'] !== NULL || $employee['chapter_lead'] !== NULL || $employee['rh'] !== NULL || $employee['po'] !== NULL) : ?>
+                    <option value="<?php echo $employee['fk_user_id']; ?>"
+                    <?php echo $getProject['evaluator_id'] == $employee['fk_user_id'] ? 'selected' : '';  ?> ><?php echo $employee['name']; ?></option>
+                <?php endif; ?>
+                <?php
+                endforeach;
+                ?>
+            </select>
+        </div>
+
+
         <br/>
 
         <input type="submit" value="Editar" class="btn btn-default"/>

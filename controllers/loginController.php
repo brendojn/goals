@@ -26,10 +26,11 @@ class loginController extends controller {
 
     	if(isset($_POST['user']) && !empty($_POST['user'])) {
     		$user = addslashes($_POST['user']);
+			$name = addslashes($_POST['name']);
     		$password = addslashes($_POST['password']);
 
     		$u = new User();
-    		$data['erro'] = $u->addUser($user, $password);
+    		$data['erro'] = $u->addUser($user, $password, $name);
     	}
 
     	$this->loadView('login_cadastrar', $data);

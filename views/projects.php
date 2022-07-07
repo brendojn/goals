@@ -68,7 +68,7 @@ if (empty($_SESSION['logged'])) {
                 <td><?php echo $project['name']; ?></td>
                 <td><?php echo $project['name_type']; ?></td>
                 <td>
-                    <?php if ($project['evaluate'] == 0) : ?>
+                    <?php if (($project['evaluate'] == 0)  || ($isRh)) : ?>
                         <a href="<?php echo BASE_URL; ?>projects/edit/<?php echo $project['id']; ?>"
                            class="btn btn-default">Editar</a>
                         <a href="projects/delete?id=<?php echo $project['id']; ?>"
@@ -90,7 +90,7 @@ if (empty($_SESSION['logged'])) {
                         <a href="<?php echo BASE_URL; ?>projects/evaluateExperience/<?php echo $project['id']; ?>"
                            class="btn btn-warning">Avaliar a nível de Experiência</a>
                     <?php endif; ?>
-                    <?php if ($project['evaluate'] == 1 && !$squadLead) : ?>
+                    <?php if (($project['evaluate'] == 1 && !$squadLead) ) : ?>
                         <a href="<?php echo BASE_URL; ?>projects/info/<?php echo $project['id']; ?>"
                            class="btn btn-info">Informações</a>
                     <?php endif; ?>

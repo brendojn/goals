@@ -108,7 +108,7 @@ class Project extends model
         $sql = $this->db->query($sql);
     }
 
-    public function editTasks($id, $employee)
+    public function editTasks($id, $employee, $evaluator)
     {
         $array = array();
 
@@ -121,7 +121,7 @@ class Project extends model
 
         $employee_id = $array['id'];
 
-        $sql = "UPDATE projects SET fk_employee_id = '$employee_id' WHERE id = '$id'";
+        $sql = "UPDATE projects SET fk_employee_id = '$employee_id', evaluator_id = '$evaluator' WHERE id = '$id'";
         $sql = $this->db->query($sql);
 
         header("Location: " . BASE_URL . "projects");
@@ -131,10 +131,13 @@ class Project extends model
     {
         $array = array();
 
-        $sql = "SELECT p.week, e.id, e.name, p.grade FROM projects p
+        $sql = "SELECT p.week, e.id, e.name, p.grade, u.name, p.evaluator_id FROM projects p
                 JOIN employees e 
                 ON (e.id = p.fk_employee_id)
+                JOIN users u
+                ON (u.id = p.evaluator_id)
                 WHERE p.id = '$id'";
+                // print_r($sql);die();
         $sql = $this->db->query($sql);
         if ($sql->rowCount() > 0) {
             $array = $sql->fetch();

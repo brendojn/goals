@@ -151,7 +151,7 @@ class User extends model
 
     }
 
-    public function addUser($user, $password)
+    public function addUser($user, $password, $name)
     {
 
         $sql = "SELECT * FROM users WHERE user = '$user'";
@@ -159,7 +159,7 @@ class User extends model
 
         if ($sql->rowCount() == 0) {
 
-            $sql = "INSERT INTO users SET user = '$user', password = MD5('$password')";
+            $sql = "INSERT INTO users SET user = '$user', password = MD5('$password'), name = '$name'";
             $sql = $this->db->query($sql);
 
             $id = $this->db->lastInsertId();
@@ -168,7 +168,7 @@ class User extends model
             header("Location: " . BASE_URL);
 
         } else {
-            return "E-mail já está cadastrado!";
+            return "Usuário já está cadastrado!";
         }
 
     }
