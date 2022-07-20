@@ -68,7 +68,7 @@ if (empty($_SESSION['logged'])) {
                 <td><?php echo $project['name']; ?></td>
                 <td><?php echo $project['name_type']; ?></td>
                 <td>
-                    <?php if (($project['evaluate'] == 0)  || ($isRh)) : ?>
+                    <?php if (($project['evaluate'] == 0) || ($isRh)) : ?>
                         <a href="<?php echo BASE_URL; ?>projects/edit/<?php echo $project['id']; ?>"
                            class="btn btn-default">Editar</a>
                         <a href="projects/delete?id=<?php echo $project['id']; ?>"
