@@ -124,7 +124,12 @@ class Project extends model
         $sql = "UPDATE projects SET week = '$week', fk_employee_id = '$employee_id', evaluator_id = '$evaluator' WHERE id = '$id'";
         $sql = $this->db->query($sql);
 
+
+        if(!empty($evaluator)) {
         $sql = "UPDATE evaluates SET fk_user_id = '$evaluator', justification = '$justification' WHERE fk_project_id = '$id'";
+        } else {
+            $sql = "UPDATE evaluates SET justification = '$justification' WHERE fk_project_id = '$id'";
+        }
         $sql = $this->db->query($sql);
 
         header("Location: " . BASE_URL . "projects");
