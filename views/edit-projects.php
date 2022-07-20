@@ -54,7 +54,7 @@ if (empty($_SESSION['logged'])) {
             </select>
         </div>
 
-        <?php if (!empty($getProject['evaluator_id'])) : ?>
+        <?php if (!empty($getProject['evaluate']) ) : ?>
         <div class="form-group">
             <label for="value">Justificativa:</label>
             <textarea class="form-control" rows="5" id="justification" name="justification"><?php echo $getProject['justification']; ?></textarea>
