@@ -11,7 +11,7 @@ if (empty($_SESSION['logged'])) {
 
     <form method="POST" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="week">Semana</label>
+            <label for="week">Período</label>
             <input class="form-control" name="week" type="text"  id="week">
             <script type="text/javascript">
                 $(function() {

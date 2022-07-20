@@ -7,14 +7,22 @@ if (empty($_SESSION['logged'])) {
 }
 ?>
 <div class="container">
-    <h1>Plantão - Editar Plantão</h1>
+    <h1>Avaliação - Editar Avaliação</h1>
 
     <form method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
-            <label for="week">Semana do plantão:</label>
-            <input type="text" name="week" id="week" class="form-control" value="<?php echo $getProject['week']; ?>"
-                   disabled/>
+            <label for="week">Período de avaliação:</label>
+            <input type="text" name="week" id="week" class="form-control" value="<?php echo $getProject['week']; ?>"/>
+            <script type="text/javascript">
+                $(function() {
+                    $('input[name="week"]').daterangepicker( {
+                        locale: {
+                            format: 'DD/MM/YYYY'
+                        }
+                    });
+                });
+            </script>
         </div>
         <div class="form-group">
             <label for="employee">Especialista:</label>

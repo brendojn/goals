@@ -108,7 +108,7 @@ class Project extends model
         $sql = $this->db->query($sql);
     }
 
-    public function editProject($id, $employee, $evaluator)
+    public function editProject($id, $week, $employee, $evaluator)
     {
         $array = array();
 
@@ -121,7 +121,7 @@ class Project extends model
 
         $employee_id = $array['id'];
 
-        $sql = "UPDATE projects SET fk_employee_id = '$employee_id', evaluator_id = '$evaluator' WHERE id = '$id'";
+        $sql = "UPDATE projects SET week = '$week', fk_employee_id = '$employee_id', evaluator_id = '$evaluator' WHERE id = '$id'";
         $sql = $this->db->query($sql);
 
         $sql = "UPDATE evaluates SET fk_user_id = '$evaluator' WHERE fk_project_id = '$id'";

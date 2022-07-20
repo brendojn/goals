@@ -96,11 +96,12 @@ class projectsController extends controller
         $p = new Project();
         $e = new Employee();
 
-        if (isset($_POST['employee']) && !empty($_POST['employee'])) {
+        if (isset($_POST['week']) && !empty($_POST['employee'])) {
+            $week = addslashes($_POST['week']);
             $employee = addslashes($_POST['employee']);
             $evaluator = addslashes($_POST['evaluator']);
 
-            $p->editProject($id, $employee, $evaluator);
+            $p->editProject($id, $week, $employee, $evaluator);
             header("Location: " . BASE_URL . "projects");
         }
 
