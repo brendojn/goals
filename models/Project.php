@@ -155,9 +155,11 @@ class Project extends model
     {
         $array = array();
 
-        $sql = "SELECT p.week, e.name, p.grade, p.evaluate, p.grade FROM projects p 
+        $sql = "SELECT p.week, e.id, e.name, p.grade, p.evaluate, p.grade, eval.justification, p.evaluator_id FROM projects p 
                 JOIN employees e 
                 ON (e.id = p.fk_employee_id)
+                JOIN evaluates eval
+                ON (p.id = eval.fk_project_id)
                 WHERE p.id = '$id'";
         $sql = $this->db->query($sql);
         if ($sql->rowCount() > 0) {

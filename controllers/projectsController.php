@@ -106,7 +106,7 @@ class projectsController extends controller
             header("Location: " . BASE_URL . "projects");
         }
 
-        $data['getProject'] = $p->getProject($id);
+        $data['getProject'] = $p->getProjectById($id);
 
         $data['employees'] = $e->getEmployees();
 
