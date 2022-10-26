@@ -5,7 +5,7 @@ class Project extends model
 
     public function createProject($employee, $evaluator, $week, $type, $grade = 0)
     {
-        $sql = "SELECT * FROM projects p WHERE fk_employee_id = '$employee' AND evaluate = '0'";
+        $sql = "SELECT * FROM projects p WHERE fk_employee_id = '$employee'";
         $sql = $this->db->query($sql);
 
         if ($sql->rowCount() == 0) {
