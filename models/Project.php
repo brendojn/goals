@@ -135,27 +135,6 @@ class Project extends model
         header("Location: " . BASE_URL . "projects");
     }
 
-    public function getProject($id)
-    {
-        $array = array();
-
-        $sql = "SELECT p.week, e.id, e.name, p.grade, u.name, p.evaluator_id, eval.justification FROM projects p
-                JOIN employees e 
-                ON (e.id = p.fk_employee_id)
-                JOIN users u
-                ON (u.id = p.evaluator_id)
-                JOIN evaluates eval
-                ON (p.id = eval.fk_project_id)
-                WHERE p.id = '$id'";
-                // print_r($sql);die();
-        $sql = $this->db->query($sql);
-        if ($sql->rowCount() > 0) {
-            $array = $sql->fetch();
-        }
-
-        return $array;
-    }
-
     public function getProjectById($id)
     {
         $array = array();
